@@ -37,7 +37,7 @@ body {
   background-color: aliceblue;
 }
 
-.first-chartoverview {
+.chart-content2 {
   background-color: antiquewhite;
 }
 
@@ -47,4 +47,11 @@ body {
 
 .totalContent {
   border: 1px solid black;
+}
+
+.chart-content1,
+.table-content1 {
+  border: 1px solid black;
+  width: 100%;
+  height: 250px;
 }

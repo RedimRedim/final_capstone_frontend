@@ -5,7 +5,7 @@ export class TotalEmployees {
 
   async sumEmployee() {
     const data = await this.EmployeesInstance.employees;
-
+    const monthlySalaryData = await this.EmployeesInstance.getMonthlySalary;
     const totalRegular = data.employees.filter((employee) => {
       return employee.employeeType.toLowerCase().includes("regular");
     }).length;
@@ -14,16 +14,11 @@ export class TotalEmployees {
       return employee.employeeType.toLowerCase().includes("probation");
     }).length;
 
-    const salaryMapping = data.employees.map((employee) => {
-      return employee.salary;
-    });
-
-    console.log(salaryMapping);
-
     return {
       totalEmployee: data.employees.length,
       totalRegular: totalRegular,
       totalProbation: totalProbation,
+      monthlySalaryData: monthlySalaryData,
     };
   }
 
