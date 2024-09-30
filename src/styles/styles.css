@@ -1,5 +1,4 @@
 body {
-  background-color: aliceblue;
   color: black;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -7,20 +6,21 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  height: 100vh;
   background-color: rgb(255, 255, 255);
 }
 
 .navbar-container {
   min-width: 120px;
-  height: 100vh;
+  height: 98vh;
   border: 1px solid black;
+  background-color: rgb(33, 37, 41);
 }
 
 .navbar {
-  padding: 0;
   display: flex;
   flex-direction: column;
+  padding-left: 1em !important;
+  align-items: start !important;
 }
 
 .navbar li {
@@ -29,29 +29,37 @@ body {
 }
 
 .navbar li a {
-  color: black;
+  color: rgb(255, 255, 255);
   text-decoration: none;
 }
 
-.first-container p {
-  background-color: aliceblue;
-}
-
-.chart-content2 {
-  background-color: antiquewhite;
-}
-
 .first-container {
-  border: 1px solid black;
+  height: 120px;
 }
 
 .totalContent {
-  border: 1px solid black;
+  border: 1px solid #504e4e;
+  border-radius: 10px;
+  width: 100%;
+  padding: 1em;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
 }
 
 .chart-content1,
-.table-content1 {
-  border: 1px solid black;
+.table-content1,
+.table-content2 {
   width: 100%;
   height: 250px;
+  border: 1px solid #504e4e;
+}
+
+.totalTitle {
+  font-size: 1.2rem;
+}
+
+.totalValue {
+  font-size: 1.5rem;
 }
