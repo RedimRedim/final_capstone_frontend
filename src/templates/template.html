@@ -19,25 +19,37 @@
     </nav>
 
     <div class="container-fluid">
-      <div class="d-flex flex-column  gap-3">
-        <div class="table-content2">
-          filter
-        </div>
 
+
+      <div class="row m-2" style="height:100px">
+        <div
+          class="selection-content d-flex flex-row p-0 border border-1 rounded-2 bg-light p-2 flex-grow-1 justify-content-end align-items-center">
+          <div class="filter-content ">
+            <select class="form-select" aria-label="Select Month">
+              <option selected>Select Month:</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+        </div>
       </div>
 
 
-      <div class="row m-0">
-        <div class="d-flex flex-row gap-4">
-          <div class="totalContent">
+      <div class="row m-2">
+        <div class="d-flex flex-row p-0 gap-3">
+          <div class="totalContent  border border-1 rounded-2 bg-light">
             <p class="totalTitle">Total Employee</p>
             <div id="totalEmployee" class="totalValue">1</div>
           </div>
-          <div class="totalContent">
+          <div class="totalContent  border border-1 rounded-2 bg-light">
             <p class="totalTitle">Total Payroll</p>
             <div id="totalPayroll" class="totalValue">1</div>
           </div>
-          <div class="totalContent">
+          <div class="totalContent  border border-1 rounded-2 bg-light">
             <div class="totalRegular d-flex flex-row justify-content-between align-items-center">
               <p class="totalTitle">Total Regular</p>
               <p id="totalRegular" class="totalValue ">1</p>
@@ -48,7 +60,7 @@
             </div>
 
           </div>
-          <div class="totalContent">
+          <div class="totalContent  border border-1 rounded-2 bg-light">
             <div class="totalGender d-flex flex-row justify-content-between align-items-center">
               <p class="totalTitle">Total Male</p>
               <p id="totalMale" class="totalValue">1</p>
@@ -61,30 +73,27 @@
         </div>
       </div>
 
-      <div class="row m-0">
-        <div class="content1 d-flex flex-row  gap-3">
-          <div class=" table-content2">
+      <div class="row m-2">
+        <div class="content1 d-flex flex-row gap-2 p-0 w-100">
+          <div class="table-content2  border border-1 rounded-2 bg-light p-2">
             table-content2
           </div>
 
-          <div class=" table-content1">
+          <div class="table-content1  border border-1 rounded-2 bg-light p-2">
             table-content1
           </div>
         </div>
       </div>
 
-
-      <div class="row m-0">
-        <div class="content1 d-flex flex-row gap-3">
-          <div class="chart-content1 p-5" style="border: 1px solid black; height: 400px">
+      <div class="row m-2 border border-1 rounded-2 bg-light">
+        <div class="content1">
+          <div class="chart-content1 p-1" style="height: 400px">
             <canvas id="salaryChart"></canvas>
           </div>
         </div>
-
-
-
       </div>
     </div>
+  </div>
 </body>
 
 </html>

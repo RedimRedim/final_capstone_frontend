@@ -6,6 +6,8 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  width: 100%;
+  height: 100%;
   background-color: rgb(255, 255, 255);
 }
 
@@ -38,14 +40,8 @@ body {
 }
 
 .totalContent {
-  border: 1px solid #504e4e;
-  border-radius: 10px;
   width: 100%;
   padding: 1em;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  -ms-border-radius: 7px;
-  -o-border-radius: 7px;
 }
 
 .chart-content1,
@@ -53,7 +49,6 @@ body {
 .table-content2 {
   width: 100%;
   height: 250px;
-  border: 1px solid #504e4e;
 }
 
 .totalTitle {

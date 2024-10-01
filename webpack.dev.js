@@ -1,6 +1,9 @@
 const { merge } = require("webpack-merge");
 const path = require("path");
 const common = require("./webpack.common");
+const webpack = require("webpack");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = merge(common, {
   mode: "development",
@@ -16,4 +19,12 @@ module.exports = merge(common, {
       },
     },
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(), // Add this line
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      filename: "index.html",
+      template: path.resolve(__dirname, "src/templates/template.html"),
+    }),
+  ],
 });

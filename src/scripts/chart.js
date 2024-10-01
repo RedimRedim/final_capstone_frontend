@@ -1,6 +1,8 @@
 import { Chart, registerables } from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+
 import { Employees } from "./employees";
-Chart.register(...registerables);
+Chart.register(...registerables, ChartDataLabels);
 
 export class ChartEmployees {
   constructor(TotalEmployeeInstance) {
@@ -52,6 +54,20 @@ export class ChartEmployees {
           },
         ],
       },
+      plugins: [
+        ChartDataLabels,
+        {
+          id: "background-color",
+          beforedraw: (chart) => {
+            const ctx = chart.canvas.getContext("2d");
+            ctx.save();
+            ctx.globalCompositeOperation = "destination-over";
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, chart.width, chart.height);
+            ctx.restore();
+          },
+        },
+      ],
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -69,10 +85,22 @@ export class ChartEmployees {
           },
         },
         plugins: {
+          datalabels: {
+            display: function (context) {
+              return context.dataset.data[context.dataIndex] > 0;
+            },
+            font: {
+              weight: "italic",
+            },
+            color: "black",
+            anchor: "end",
+            align: "top",
+          },
           title: {
             display: true,
+            text: "Monthly Salary vs Monthly Employee",
             font: {
-              size: 16,
+              size: 20,
               weight: "bold",
             },
             color: "black",

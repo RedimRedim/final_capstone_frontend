@@ -6,6 +6,11 @@ import { TotalEmployees } from "./total.js";
 import { Employees } from "./employees.js";
 import { ChartEmployees } from "./chart.js";
 import { activateNavbar } from "./navbar.js";
+
+if (module.hot) {
+  module.hot.accept();
+}
+
 activateNavbar();
 const EmployeesClass = new Employees();
 const TotalEmployeesClass = new TotalEmployees(EmployeesClass);
