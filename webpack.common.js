@@ -41,5 +41,10 @@ module.exports = {
       filename: "index.html",
       template: path.resolve(__dirname, "src/templates/template.html"),
     }),
+
+    // new HtmlWebpackPlugin({
+    //   filename: "payroll.html",
+    //   template: path.resolve(__dirname, "src/templates/payroll.html"),
+    // }),
   ],
 };

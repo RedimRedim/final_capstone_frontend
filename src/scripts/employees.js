@@ -4,6 +4,7 @@ export class Employees {
   constructor() {
     this.employees = this.getEmployees();
     this.getMonthlySalary = this.getMonthlySalary();
+    this.getMonthlyDepartment = this.getMonthlyDepartment();
   }
 
   async getEmployees() {
@@ -24,6 +25,18 @@ export class Employees {
 
       const monthlySalaryData = await response.json();
       return monthlySalaryData.data;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async getMonthlyDepartment() {
+    try {
+      const response = await fetch(
+        `${API_URL}/api/employees/monthly-department`
+      );
+      const monthlyDepartmentData = await response.json();
+      return monthlyDepartmentData.data;
     } catch (error) {
       return error;
     }
