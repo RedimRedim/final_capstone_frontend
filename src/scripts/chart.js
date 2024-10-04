@@ -10,19 +10,17 @@ export class ChartEmployees {
   }
 
   async salaryChart() {
-    const { monthlySalaryData } =
-      await this.TotalEmployeeInstance.sumEmployee();
-    const labels = Object.keys(monthlySalaryData);
-    const values = Object.values(monthlySalaryData);
+    const { monthArray, totalEmployeesArray, salaryArray } =
+      await this.TotalEmployeeInstance.renderChartTotal();
 
     const config = {
       type: "bar",
       data: {
-        labels: labels,
+        labels: monthArray,
         datasets: [
           {
             label: "Monthly Salary",
-            data: values,
+            data: salaryArray,
             borderWidth: 1,
             backgroundColor: "rgba(44,153,228, 0.5)",
             borderColor: "rgba(44,153,228, 1)", // Dark red
@@ -35,11 +33,24 @@ export class ChartEmployees {
             pointRadius: 5,
             yAxisID: "salaryAxis",
             order: 1, // Set order to be drawn first
+            datalabels: {
+              display: function (context) {
+                return context.dataset.data[context.dataIndex] > 0;
+              },
+              font: {
+                weight: "bold",
+                size: 15,
+              },
+              color: "black",
+              anchor: "end",
+              align: "center",
+              offset: 5, // Adjust this value for spacing
+            },
           },
           {
             type: "line",
             label: "Monthly Employee",
-            data: [50, 70, 80, 90, 100, 110, 120, 150, 135],
+            data: totalEmployeesArray,
             backgroundColor: "rgba(255, 99, 132, 0.5)", // Light red
             borderColor: "rgba(255, 99, 132, 1)", // Dark red            borderWidth: 1,
             pointBackgroundColor: "gray",
@@ -51,6 +62,19 @@ export class ChartEmployees {
             pointRadius: 8,
             yAxisID: "employeeAxis",
             order: 0,
+            datalabels: {
+              display: function (context) {
+                return context.dataset.data[context.dataIndex] > 0;
+              },
+              font: {
+                weight: "bold",
+                size: 15,
+              },
+              color: "black",
+              anchor: "center",
+              align: "bottom",
+              offset: 5,
+            },
           },
         ],
       },
@@ -85,17 +109,6 @@ export class ChartEmployees {
           },
         },
         plugins: {
-          datalabels: {
-            display: function (context) {
-              return context.dataset.data[context.dataIndex] > 0;
-            },
-            font: {
-              weight: "italic",
-            },
-            color: "black",
-            anchor: "end",
-            align: "top",
-          },
           title: {
             display: true,
             text: "Monthly Salary vs Monthly Employee",

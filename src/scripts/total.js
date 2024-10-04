@@ -3,44 +3,62 @@ export class TotalEmployees {
     this.EmployeesInstance = EmployeesInstance;
   }
 
-  async sumEmployee() {
-    const data = await this.EmployeesInstance.employees;
-    const monthlySalaryData = await this.EmployeesInstance.getMonthlySalary;
-    const monthlyDepartmentData = await this.EmployeesInstance
-      .getMonthlyDepartment;
+  async updateTotalHtml(month) {
+    const data = await this.EmployeesInstance.getMonthlySalary;
+    let monthDataResult = [];
+    data.forEach((data) => {
+      if (data.month.toLowerCase() == month.toLowerCase()) {
+        let departmentTableHtml = [];
 
-    const totalRegular = data.employees.filter((employee) => {
-      return employee.employeeType.toLowerCase().includes("regular");
-    }).length;
+        for (let department in data.departments) {
+          departmentTableHtml.push(`<tr>
+          <td>${department}</td>
+          <td>${data.departments[department]}</td>
+          </tr>
+          `);
+        }
 
-    const totalProbation = data.employees.filter((employee) => {
-      return employee.employeeType.toLowerCase().includes("probation");
-    }).length;
+        monthDataResult = {
+          month: data.month.toLowerCase(),
+          totalProbation: data.totalProbation,
+          totalSalary: data.salary,
+          totalRegular: data.totalRegular,
+          totalEmployees: data.totalEmployees,
+          totalFemale: data.totalFemale,
+          totalMale: data.totalMale,
+          departmentHtml: departmentTableHtml.join(""),
+        };
 
-    return {
-      totalEmployee: data.employees.length,
-      totalRegular: totalRegular,
-      totalProbation: totalProbation,
-      monthlySalaryData: monthlySalaryData,
-      monthlyDepartmentData: monthlyDepartmentData,
-    };
+        this.renderTotalHtml(monthDataResult);
+
+        this.renderChartTotal();
+      }
+    });
   }
 
-  async updateTotalHtml() {
-    const data = await this.sumEmployee();
-    document.getElementById("totalEmployee").innerHTML = data.totalEmployee;
-    document.getElementById("totalRegular").innerHTML = data.totalRegular;
-    document.getElementById("totalProbation").innerHTML = data.totalProbation;
+  async renderChartTotal() {
+    const monthlyData = await this.EmployeesInstance.getMonthlySalary;
 
-    // const deptTable = document.querySelector("tbody.table-content1");
-    // const monthlyDepartmentData = data.monthlyDepartmentData;
+    const monthArray = monthlyData.map((item) => item.month);
+    const totalEmployeesArray = monthlyData.map((item) => item.totalEmployees);
+    const salaryArray = monthlyData.map((item) => item.salary);
 
-    // for (let key in monthlyDepartmentData) {
-    //   const deptRow = document.createElement("tr");
-    //   deptRow.innerHTML = `
-    //   <td>${key}</td>
-    //   <td>${monthlyDepartmentData[key]}</td>`;
-    //   deptTable.appendChild(deptRow);
-    // }
+    return { monthArray, totalEmployeesArray, salaryArray };
+  }
+
+  async renderTotalHtml(monthDataResult) {
+    document.getElementById("totalEmployee").innerHTML =
+      monthDataResult.totalEmployees;
+    document.getElementById("totalSalary").innerHTML =
+      monthDataResult.totalSalary;
+    document.getElementById("totalRegular").innerHTML =
+      monthDataResult.totalRegular;
+    document.getElementById("totalProbation").innerHTML =
+      monthDataResult.totalProbation;
+    document.getElementById("totalMale").innerHTML = monthDataResult.totalMale;
+    document.getElementById("totalFemale").innerHTML =
+      monthDataResult.totalFemale;
+    document.querySelector(".table-content1body").innerHTML =
+      monthDataResult.departmentHtml;
   }
 }
