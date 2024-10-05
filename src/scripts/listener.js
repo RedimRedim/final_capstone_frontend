@@ -3,3 +3,7 @@ const monthSelect = () =>
     const selectedOption = this.value;
     console.log(selectedOption);
   });
+
+
+
+

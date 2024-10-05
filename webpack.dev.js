@@ -23,8 +23,9 @@ module.exports = merge(common, {
     new webpack.HotModuleReplacementPlugin(), // Add this line
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: path.resolve(__dirname, "src/templates/template.html"),
+      filename: "main.html",
+      template: path.resolve(__dirname, "src/templates/main.html"),
+      chunks: ["main", "style"],
     }),
   ],
 });

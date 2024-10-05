@@ -7,13 +7,12 @@
     <title>HR Dashboard</title>
 </head>
 
-
 <body>
     <div class="d-flex p-2">
         <nav class="navbar-container">
             <ul class="navbar">
-                <li><a href="">Dashboard</a></li>
-                <li><a href="../templates/payroll.html">Payroll</a></li>
+                <li><a href="main.html">Dashboard</a></li>
+                <li><a href="payroll.html">Payroll</a></li>
                 <li><a href="#">About Us</a></li>
             </ul>
         </nav>
@@ -22,20 +21,48 @@
 
 
             <div class="row m-2" style="height:100px">
-                <div
-                    class="selection-content d-flex flex-row p-0 border border-1 rounded-2 bg-light p-2 flex-grow-1 justify-content-end align-items-center">
-                    <div class="filter-content ">
-                        <select class="form-select" aria-label="Select Month">
-                            <option selected>Select Month:</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
+
+                <form id="createEmpForm">
+                    <div class="emp-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
                     </div>
-                </div>
+
+                    <div class="emp-group">
+                        <label for="sex">Sex</label>
+                        <input type="radio" name="sex" id="female">
+                        <label for="female">Female</label>
+                        <input type="radio" name="sex" id="male">
+                        <label for="male">Male</label>
+                    </div>
+
+                    <div class="emp-group">
+                        <label for="department">Department</label>
+                        <select id="department" name="department" required>
+                            <option value="">Select Department</option>
+                            <option value="HR">HR</option>
+                            <option value="Finance">Finance</option>
+                            <option value="IT">IT</option>
+                        </select>
+
+                        <div class="emp-group">
+                            <label for="employeeType">Employee Type</label>
+                            <select id="employeeType" name="employeeType" required>
+                                <option value="">Select Employee Type</option>
+                                <option value="Full Time">Regular</option>
+                                <option value="Part Time">Probation</option>
+                            </select>
+                        </div>
+
+                        <div class="emp-group">
+                            <label for="role">Role</label>
+                            <input type="text" id="role" name="role" required>
+                        </div>
+
+                        <input type="submit" id="saveEmp" class="btn btn-primary" value="Submit">
+                    </div>
+                </form>
+
             </div>
 
 
