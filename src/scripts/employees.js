@@ -44,7 +44,7 @@ export class Employees {
       }
 
       const data = await response.json();
-      console.log(data);
+      alert(`Adding new employee, ${JSON.stringify(data)}`);
     } catch (error) {
       console.log(error);
     }

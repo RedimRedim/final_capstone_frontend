@@ -7,6 +7,5 @@ form.addEventListener("submit", async (event) => {
 
   const formData = new FormData(form);
   const data = Object.fromEntries(formData.entries());
-
   EmployeesClass.postEmployee(data);
 });
