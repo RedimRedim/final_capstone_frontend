@@ -1,4 +1,8 @@
 import { Employees } from "./employees.js";
+import DataTable from "datatables.net-bs5";
+import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
+
+let dataTableInstance; // Variable to hold the DataTable instance
 const EmployeesClass = new Employees();
 
 const form = document.getElementById("createEmpForm");
@@ -35,4 +39,15 @@ async function updateEmpTableBody() {
   });
 
   document.getElementById("empTableBody").innerHTML = empTableHtml.join("");
+
+  // Initialize DataTable after updating the table body
+  if (!dataTableInstance) {
+    dataTableInstance = new DataTable("#payrollTable", {
+      responsive: true,
+    }); // Initialize only once
+  } else {
+    dataTableInstance.clear(); // Clear previous data
+    dataTableInstance.rows.add(empData); // Add new data
+    dataTableInstance.draw(); // Re-draw the DataTable with updated data
+  }
 }

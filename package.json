@@ -40,6 +40,8 @@
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.4",
     "chartjs-plugin-datalabels": "^2.2.0",
+    "datatables.net-bs5": "^2.1.8",
+    "datatables.net-dt": "^2.1.8",
     "regenerator-runtime": "^0.14.0"
   }
 }

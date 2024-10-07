@@ -42,13 +42,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: "main.html",
       template: path.resolve(__dirname, "src/templates/main.html"),
-      chunks: ["main", "style"], // Include only the payroll bundle
+      chunks: ["style", "main"], // Include only the payroll bundle
     }),
 
     new HtmlWebpackPlugin({
       filename: "payroll.html",
       template: path.resolve(__dirname, "src/templates/payroll.html"),
-      chunks: ["payroll", "style"], // Include only the payroll bundle
+      chunks: ["style", "payroll"], // Include only the payroll bundle
     }),
 
     // new HtmlWebpackPlugin({
