@@ -2,7 +2,6 @@ const API_URL = "http://localhost:2000";
 
 export class Employees {
   constructor() {
-    this.employees = this.getEmployees();
     this.getMonthlySalary = this.getMonthlySalary();
   }
 
@@ -12,7 +11,7 @@ export class Employees {
         method: "GET",
       });
       const data = await response.json();
-      return data;
+      return data.employees;
     } catch (error) {
       return error;
     }

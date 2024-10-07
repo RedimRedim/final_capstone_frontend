@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <div class="d-flex p-2">
+    <div class="d-flex  p-2">
         <nav class="navbar-container">
             <ul class="navbar">
                 <li><a href="main.html">Dashboard</a></li>
@@ -20,7 +20,7 @@
         <div class="container-fluid">
 
 
-            <div class="row m-2" style="height:100px">
+            <div class="row m-2">
 
                 <form id="createEmpForm">
                     <div class="emp-group">
@@ -65,9 +65,31 @@
 
             </div>
 
+            <div class="row m-2 ">
+                <table class="table table-hover table-dark table-striped align: middle">
+                    <thead class="text-center align: middle">
+                        <tr>
+                            <th scope="col" id="_id">Oid</th>
+                            <th scope="col" id="name">Name</th>
+                            <th scope="col" id="sex">Sex</th>
+                            <th scope="col" id="department">Department</th>
+                            <th scope="col" id="employeeType">Employee Type</th>
+                            <th scope="col" id="role">Role</th>
+                            <th scope="col" id="salary">Salary</th>
+                            <th scope="col" id="isResign">isResign</th>
+                            <th scope="col" id="createdDate">Created Date</th>
+                            <th scope="col" id="updatedDate">Updated Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="empTableBody">
+                        <!-- Employee rows will be dynamically generated here -->
+                    </tbody>
+                </table>
 
+            </div>
 
         </div>
+
     </div>
 </body>
 
