@@ -5,21 +5,12 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   entry: {
-    main: "./src/scripts/main.js",
-    payroll: "./src/scripts/payroll.js",
-    style: "./src/setup/style.js",
+    main: "./src/views/main.js",
   },
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
-  },
-  devServer: {
-    static: path.join(__dirname, "dist"),
-    compress: true,
-    port: 8080,
-    hot: true,
-    open: true,
   },
   module: {
     rules: [
@@ -37,18 +28,12 @@ module.exports = {
     ],
   },
   plugins: [
-    //new CleanWebpackPlugin(),
+    new CleanWebpackPlugin(),
 
     new HtmlWebpackPlugin({
       filename: "main.html",
-      template: path.resolve(__dirname, "src/templates/main.html"),
-      chunks: ["style", "main"], // Include only the payroll bundle
-    }),
-
-    new HtmlWebpackPlugin({
-      filename: "payroll.html",
-      template: path.resolve(__dirname, "src/templates/payroll.html"),
-      chunks: ["style", "payroll"], // Include only the payroll bundle
+      template: path.resolve(__dirname, "./src/templates/main.html"),
+      chunks: ["main"], // Include only the payroll bundle
     }),
 
     // new HtmlWebpackPlugin({

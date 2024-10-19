@@ -1,0 +1,97 @@
+export const home = {
+  render() {
+    return `<div class="row m-2" style="height:70px">
+        <div
+          class="selection-content d-flex flex-row p-0 border border-1 rounded-2 bg-light p-2 flex-grow-1 justify-content-end align-items-center">
+          <div class="filter-content ">
+            <select class="form-select" id="monthSelect" aria-label="Select Month">
+              <option value="Jan">Jan</option>
+              <option value="Feb">Feb</option>
+              <option value="Mar">Mar</option>
+              <option value="Apr">Apr</option>
+              <option value="May">May</option>
+              <option value="Jun">Jun</option>
+              <option value="Jul">Jul</option>
+              <option value="Aug">Aug</option>
+              <option value="Sep">Sep</option>
+              <option value="Oct">Oct</option>
+              <option value="Nov">Nov</option>
+              <option value="Dec">Dec</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row m-2">
+        <div class="d-flex flex-row p-0 gap-3">
+          <div class="totalContent  border border-1 rounded-2 bg-light">
+            <p class="totalTitle">Total Employee</p>
+            <div id="totalEmployee" class="totalValue"></div>
+          </div>
+          <div class="totalContent  border border-1 rounded-2 bg-light">
+            <p class="totalTitle">Total Salary</p>
+            <div id="totalSalary" class="totalValue"></div>
+          </div>
+          <div class="totalContent  border border-1 rounded-2 bg-light">
+            <div class="totalRegular d-flex flex-row justify-content-between align-items-center">
+              <p class="totalTitle">Total Regular</p>
+              <p id="totalRegular" class="totalValue "></p>
+            </div>
+            <div class="totalProbation d-flex flex-row justify-content-between align-items-center">
+              <p class="totalTitle">Total Probation</p>
+              <p id="totalProbation" class="totalValue "></p>
+            </div>
+
+          </div>
+          <div class="totalContent  border border-1 rounded-2 bg-light">
+            <div class="totalGender d-flex flex-row justify-content-between align-items-center">
+              <p class="totalTitle">Total Male</p>
+              <p id="totalMale" class="totalValue"></p>
+            </div>
+            <div class="totalFemale d-flex flex-row justify-content-between align-items-center">
+              <p class="totalTitle">Total Female</p>
+              <p id="totalFemale" class="totalValue"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-2">
+        <div class="content1 d-flex flex-row gap-2 p-0 w-100">
+          <div class="table-content2  border border-1 rounded-2 bg-light p-2">
+            table-content2
+          </div>
+
+          <div class="table-content1  border border-1 rounded-2 bg-light p-2">
+            <table class="table table-hover table-dark">
+              <thead>
+                <tr>
+                  <th scope="col">Department</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody class="table-content1body">
+                <!-- <tr>
+                  <td scope="row">FE</td>
+                  <td>5</td>
+                </tr> -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-2 border border-1 rounded-2 bg-light">
+        <div class="content1">
+          <div class="chart-content1 p-1" style="height: 400px">
+            <canvas id="salaryChart"></canvas>
+          </div>
+        </div>
+      </div>`;
+  },
+
+  async afterRender() {
+    console.log("BBB");
+  },
+};
