@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HR Dashboard</title>
-  </head>
 
-  <body>
-    <a href="#mainContent" class="skip-link">Skip to content</a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HR Dashboard</title>
+</head>
 
-    <div class="app-bar d-flex p-2" id="appBar">
+<body>
+  <div class="container-fluid d-flex p-0">
+
+
+    <div class="app-bar " id="appBar">
       <div class="app-bar__menu">
         <button id="hamburgerButton">☰</button>
       </div>
-  
-      <div class="app-bar_brand">
-        <a href="/">Rest Design</a>
-      </div>
-  
+
       <nav id="navigationDrawer" class="app-bar__navigation navbar-container">
-        <ul class="navbar">
-          <li class=""><a href="/">Home</a></li>
+        <ul>
+          <li class=""><a href="/main.html">Home</a></li>
           <li class=""><a href="#/payroll" id="favoriteLink">Payroll</a></li>
-          <li class=""><a href="https://github.com/RedimRedim/" target="_blank">About Us</a>
+          <li class=""><a href="https://github.com/RedimRedim/" target="_blank">About Us</a></li>
         </ul>
       </nav>
     </div>
 
-      <div class="container-fluid" id="mainContent">
-        <!-- render through main.js-->
-      </div>
+    <div class="container-fluid" id="mainContent">
+      <!-- render through main.js-->
     </div>
-  </body>
+  </div>
+
+  </div>
+</body>
+
 </html>

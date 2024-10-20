@@ -1,9 +1,7 @@
 const API_URL = "http://localhost:2000";
 
 export class Employees {
-  constructor() {
-    this.getMonthlySalary = this.getMonthlySalary();
-  }
+  constructor() {}
 
   async getEmployees() {
     try {

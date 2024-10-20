@@ -1,13 +1,19 @@
-export class TotalEmployees {
-  constructor(EmployeesInstance) {
-    this.EmployeesInstance = EmployeesInstance;
+import { Employees } from "./employees";
+
+export class TotalEmployees extends Employees {
+  constructor() {
+    super();
   }
 
   async updateTotalHtml(month) {
-    const data = await this.EmployeesInstance.getMonthlySalary;
+    const data = await this.getMonthlySalary();
+
     let monthDataResult = [];
     data.forEach((data) => {
-      if (data.month.toLowerCase() == month.toLowerCase()) {
+      if (data.month == month && data.year == "2024") {
+        console.log(data.month);
+        console.log(data.year);
+
         let departmentTableHtml = [];
 
         for (let department in data.departments) {
@@ -19,7 +25,7 @@ export class TotalEmployees {
         }
 
         monthDataResult = {
-          month: data.month.toLowerCase(),
+          month: data.month,
           totalProbation: data.totalProbation,
           totalSalary: data.salary,
           totalRegular: data.totalRegular,
@@ -37,11 +43,10 @@ export class TotalEmployees {
   }
 
   async renderChartTotal() {
-    const monthlyData = await this.EmployeesInstance.getMonthlySalary;
-
+    const monthlyData = await this.getMonthlySalary();
     const monthArray = monthlyData.map((item) => item.month);
     const totalEmployeesArray = monthlyData.map((item) => item.totalEmployees);
-    const salaryArray = monthlyData.map((item) => item.salary);
+    const salaryArray = monthlyData.map((item) => item.totalSalary);
 
     return { monthArray, totalEmployeesArray, salaryArray };
   }

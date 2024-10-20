@@ -1,18 +1,19 @@
 import { Chart, registerables } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
-
 import { Employees } from "./employees";
+import { TotalEmployees } from "./total";
 Chart.register(...registerables, ChartDataLabels);
 
-export class ChartEmployees {
-  constructor(TotalEmployeeInstance) {
-    this.TotalEmployeeInstance = TotalEmployeeInstance;
+export class ChartEmployees extends TotalEmployees {
+  constructor() {
+    super();
   }
 
   async salaryChart() {
     const { monthArray, totalEmployeesArray, salaryArray } =
-      await this.TotalEmployeeInstance.renderChartTotal();
+      await this.renderChartTotal();
 
+    console.log(monthArray, totalEmployeesArray, salaryArray);
     const config = {
       type: "bar",
       data: {

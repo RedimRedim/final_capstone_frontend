@@ -1,30 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+import { Employees } from "../component/employees";
+import DataTable from "datatables.net-bs5";
+import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
+let dataTableInstance;
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HR Dashboard</title>
-</head>
+export const payroll = {
+  employees: new Employees(),
 
-
-
-
-
-<body>
-    <div class="d-flex  p-2">
-        <nav class="navbar-container">
-            <ul class="navbar">
-                <li><a href="main.html">Dashboard</a></li>
-                <li><a href="payroll.html">Payroll</a></li>
-                <li><a href="#">About Us</a></li>
-            </ul>
-        </nav>
-
-        <div class="container-fluid">
-
-
-            <div class="row m-2">
+  render() {
+    return `<div class="row m-2">
 
                 <form id="createEmpForm">
                     <div class="emp-group">
@@ -91,11 +74,59 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div>`;
+  },
 
-        </div>
+  initListener() {
+    this.formListener();
+  },
 
-    </div>
-</body>
+  formListener() {
+    const form = document.getElementById("createEmpForm");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
 
-</html>
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      this.employees.postEmployee(data);
+    });
+  },
+
+  async updateEmpTableBody() {
+    const empData = await this.employees.getEmployees();
+    let empTableHtml = [];
+    empData.forEach((data) => {
+      empTableHtml.push(`<tr>
+          <td>${data._id}</td>
+          <td>${data.name}</td>
+          <td>${data.sex}</td>
+          <td>${data.department}</td>
+          <td>${data.employeeType}</td>
+          <td>${data.role}</td>
+          <td>${JSON.stringify(data.salary)}</td>
+          <td>${data.isResign}</td>
+          <td>${data.createdDate}</td>
+          <td>${data.updatedDate}</td>
+          </tr>
+          `);
+    });
+
+    document.getElementById("empTableBody").innerHTML = empTableHtml.join("");
+
+    // Initialize DataTable after updating the table body
+    if (!dataTableInstance) {
+      dataTableInstance = new DataTable("#payrollTable", {
+        responsive: true,
+      }); // Initialize only once
+    } else {
+      dataTableInstance.clear(); // Clear previous data
+      dataTableInstance.rows.add(empData); // Add new data
+      dataTableInstance.draw(); // Re-draw the DataTable with updated data
+    }
+  },
+
+  async afterRender() {
+    this.updateEmpTableBody();
+    this.initListener();
+  },
+};
