@@ -26,6 +26,18 @@ export class Employees {
     }
   }
 
+  async getMonthlyDepartment() {
+    try {
+      const response = await fetch(
+        `${API_URL}/api/employees/monthly-department`
+      );
+
+      const monthlyData = await response.json();
+      return monthlyData.data;
+    } catch (error) {
+      return error;
+    }
+  }
   async postEmployee(formData) {
     try {
       const response = await fetch(`${API_URL}/api/employees`, {
