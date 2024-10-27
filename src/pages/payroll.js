@@ -1,4 +1,4 @@
-import { Employees } from "../component/employees";
+import { Employees } from "../component/employees-api";
 import DataTable from "datatables.net-bs5";
 import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
 let dataTableInstance;

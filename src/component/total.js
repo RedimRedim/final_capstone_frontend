@@ -1,54 +1,46 @@
-import { Employees } from "./employees";
+import { Employees } from "./employees-api";
+import { CleaningData } from "../utils/datacleaning/clean";
 
 export class TotalEmployees extends Employees {
   constructor() {
     super();
+    this._monthlySalaryData = null; // Initialize here
+    this._monthlyDeptData = null;
+    this.cleaningData = new CleaningData();
   }
 
-  async updateTotalHtml(month) {
-    const data = await this.getMonthlySalary();
+  get monthSalaryData() {
+    console.log(this._monthSalaryData);
+    return this._monthlySalaryData; // Getter for accessing the data
+  }
 
+  async updateTotalHtml(year, month) {
+    this._monthlyDeptData = "cc";
+    const data = await this.getMonthlySalary();
+    const deptData = await this.getMonthlyDepartment();
+    this._monthlySalaryData = data; //save data
+    this._monthlyDeptData = deptData; //save data
+    console.log(this._monthlySalaryData);
     let monthDataResult = [];
     data.forEach((data) => {
-      if (data.month == month && data.year == "2024") {
-        console.log(data.month);
-        console.log(data.year);
-
-        let departmentTableHtml = [];
-
-        for (let department in data.departments) {
-          departmentTableHtml.push(`<tr>
-          <td>${department}</td>
-          <td>${data.departments[department]}</td>
-          </tr>
-          `);
-        }
-
+      if (data.month == month && data.year == year) {
         monthDataResult = {
           month: data.month,
           totalProbation: data.totalProbation,
-          totalSalary: data.salary,
+          totalSalary: data.totalSalary,
           totalRegular: data.totalRegular,
           totalEmployees: data.totalEmployees,
           totalFemale: data.totalFemale,
           totalMale: data.totalMale,
-          departmentHtml: departmentTableHtml.join(""),
+          departmentData: this.cleaningData.monthlyDepartmentDataHtml({
+            deptData,
+            month,
+            year: year,
+          }),
         };
-
         this.renderTotalHtml(monthDataResult);
-
-        this.renderChartTotal();
       }
     });
-  }
-
-  async renderChartTotal() {
-    const monthlyData = await this.getMonthlySalary();
-    const monthArray = monthlyData.map((item) => item.month);
-    const totalEmployeesArray = monthlyData.map((item) => item.totalEmployees);
-    const salaryArray = monthlyData.map((item) => item.totalSalary);
-
-    return { monthArray, totalEmployeesArray, salaryArray };
   }
 
   async renderTotalHtml(monthDataResult) {
@@ -63,7 +55,7 @@ export class TotalEmployees extends Employees {
     document.getElementById("totalMale").innerHTML = monthDataResult.totalMale;
     document.getElementById("totalFemale").innerHTML =
       monthDataResult.totalFemale;
-    document.querySelector(".table-content1body").innerHTML =
-      monthDataResult.departmentHtml;
+    document.getElementById("tableDepartmentBody").innerHTML =
+      monthDataResult.departmentData;
   }
 }

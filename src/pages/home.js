@@ -1,17 +1,25 @@
 import { TotalEmployees } from "../component/total";
-import { Employees } from "../component/employees";
+import { Employees } from "../component/employees-api";
 import { ChartEmployees } from "../component/chart";
 
 export const home = {
   employees: new Employees(),
-  chartEmployees: new ChartEmployees(),
   totalEmployees: new TotalEmployees(),
+  chartEmployees: new ChartEmployees(), // Pass the instance
 
   render() {
     return `<div class="row m-2" style="height:70px">
         <div
           class="selection-content d-flex flex-row p-0 border border-1 rounded-2 bg-light p-2 flex-grow-1 justify-content-end align-items-center">
-          <div class="filter-content ">
+         
+          <div class="year-filter-content ">
+              <select class="form-select" id="yearSelect" aria-label="Select Year">
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+              </select>
+          </div>
+         
+          <div class="month-filter-content ">
             <select class="form-select" id="monthSelect" aria-label="Select Month">
               <option value="1">Jan</option>
               <option value="2">Feb</option>
@@ -27,6 +35,7 @@ export const home = {
               <option value="12">Dec</option>
             </select>
           </div>
+
         </div>
       </div>
 
@@ -71,7 +80,7 @@ export const home = {
             table-content2
           </div>
 
-          <div class="table-content1  border border-1 rounded-2 bg-light p-2">
+          <div class="tableDepartment id="tableDepartment" border border-1 rounded-2 bg-light p-2">
             <table class="table table-hover table-dark">
               <thead>
                 <tr>
@@ -79,7 +88,7 @@ export const home = {
                   <th scope="col">Total</th>
                 </tr>
               </thead>
-              <tbody class="table-content1body">
+              <tbody class="tableDepartmentBody" id="tableDepartmentBody">
                 <!-- <tr>
                   <td scope="row">FE</td>
                   <td>5</td>
@@ -100,18 +109,37 @@ export const home = {
   },
 
   initListener() {
-    const selecteElement = document.getElementById("monthSelect");
+    this.setUpListener();
+  },
 
-    selecteElement.addEventListener("change", async (event) => {
+  setUpListener() {
+    const selectMonthElement = document.getElementById("monthSelect");
+    const selectYearElement = document.getElementById("yearSelect");
+
+    selectMonthElement.addEventListener("change", async (event) => {
       const monthOption = event.target.value;
-      await this.totalEmployees.updateTotalHtml(monthOption);
+      const yearOption = selectYearElement.value;
+      await this.totalEmployees.updateTotalHtml(yearOption, monthOption);
+    });
+
+    selectYearElement.addEventListener("change", async (event) => {
+      const yearOption = event.target.value;
+      const monthOption = selectMonthElement.value;
+      await this.totalEmployees.updateTotalHtml(yearOption, monthOption);
+      await this.chartEmployees.generateSalaryChart(yearOption);
     });
   },
 
   async contentLoadedSetup() {
-    const selecteElement = document.getElementById("monthSelect");
-    await this.totalEmployees.updateTotalHtml(selecteElement.value);
-    await this.chartEmployees.salaryChart();
+    const selectMonthElement = document.getElementById("monthSelect");
+    const selectYearElement = document.getElementById("yearSelect");
+    await this.totalEmployees.updateTotalHtml(
+      selectYearElement.value,
+      selectMonthElement.value
+    );
+    console.log("ongoing running this");
+    console.log(this.totalEmployees._monthlySalaryData);
+    await this.chartEmployees.generateSalaryChart(selectYearElement.value);
   },
 
   async afterRender() {
