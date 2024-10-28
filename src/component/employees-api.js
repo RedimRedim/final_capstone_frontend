@@ -17,7 +17,7 @@ export class Employees {
 
   async getMonthlySalary() {
     try {
-      const response = await fetch(`${API_URL}/api/employees/monthly-salary`);
+      const response = await fetch(`${API_URL}/api/employees/monthly-salary/`);
 
       const monthlyData = await response.json();
       return monthlyData.data;
@@ -26,10 +26,11 @@ export class Employees {
     }
   }
 
-  async getMonthlyDepartment() {
+  async getMonthlyDepartment(year, month) {
     try {
+      const reqQueryDate = `${year}-${month}`;
       const response = await fetch(
-        `${API_URL}/api/employees/monthly-department`
+        `${API_URL}/api/employees/monthly-department/?date=${reqQueryDate}`
       );
 
       const monthlyData = await response.json();

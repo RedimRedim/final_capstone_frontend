@@ -5,20 +5,17 @@ export class CleaningData {
     let monthlyDeptDataHtml = [];
 
     data.deptData.forEach((item) => {
-      if (item.month == data.month && item.year == data.year) {
-        monthlyDeptDataHtml.push(`<tr>
+      monthlyDeptDataHtml.push(`<tr>
           <td>${item.department}</td>
           <td>${item.totalEmployees}</td>
         </tr>`);
-      }
     });
 
     return monthlyDeptDataHtml.join("");
   }
 
   yearlyChartData(data) {
-    console.log(data);
-    yearFilteredData = data.filter((item) => item.year == data.year);
+    const yearFilteredData = data.data.filter((item) => item.year == data.year);
 
     const monthArray = yearFilteredData.map((item) => item.month);
     const totalEmployeesArray = yearFilteredData.map(

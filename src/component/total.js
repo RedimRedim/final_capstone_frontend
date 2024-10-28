@@ -2,25 +2,17 @@ import { Employees } from "./employees-api";
 import { CleaningData } from "../utils/datacleaning/clean";
 
 export class TotalEmployees extends Employees {
-  constructor() {
+  constructor(chartEmployeesInstance) {
     super();
-    this._monthlySalaryData = null; // Initialize here
-    this._monthlyDeptData = null;
+    this.chartEmployeesInstance = chartEmployeesInstance; //chartEmployees instance
+    this._monthlySalaryData = null;
     this.cleaningData = new CleaningData();
   }
 
-  get monthSalaryData() {
-    console.log(this._monthSalaryData);
-    return this._monthlySalaryData; // Getter for accessing the data
-  }
-
   async updateTotalHtml(year, month) {
-    this._monthlyDeptData = "cc";
     const data = await this.getMonthlySalary();
-    const deptData = await this.getMonthlyDepartment();
+    const deptData = await this.getMonthlyDepartment(year, month);
     this._monthlySalaryData = data; //save data
-    this._monthlyDeptData = deptData; //save data
-    console.log(this._monthlySalaryData);
     let monthDataResult = [];
     data.forEach((data) => {
       if (data.month == month && data.year == year) {
@@ -32,15 +24,29 @@ export class TotalEmployees extends Employees {
           totalEmployees: data.totalEmployees,
           totalFemale: data.totalFemale,
           totalMale: data.totalMale,
-          departmentData: this.cleaningData.monthlyDepartmentDataHtml({
-            deptData,
-            month,
-            year: year,
-          }),
         };
-        this.renderTotalHtml(monthDataResult);
       }
     });
+
+    console.log(year, month);
+
+    //DepartmentData no need to check data.month & data.year
+    monthDataResult.departmentData =
+      this.cleaningData.monthlyDepartmentDataHtml({
+        deptData,
+        month,
+        year: year,
+      });
+
+    this.renderTotalHtml(monthDataResult);
+  }
+
+  async updateChartHtml(year) {
+    const monthlyData = this.cleaningData.yearlyChartData({
+      data: this._monthlySalaryData,
+      year,
+    });
+    await this.chartEmployeesInstance.generateSalaryChart(monthlyData);
   }
 
   async renderTotalHtml(monthDataResult) {

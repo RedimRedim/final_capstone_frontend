@@ -1,11 +1,11 @@
 import { TotalEmployees } from "../component/total";
 import { Employees } from "../component/employees-api";
 import { ChartEmployees } from "../component/chart";
+const chartEmployeesInstance = new ChartEmployees(); // Pass the instance
 
 export const home = {
   employees: new Employees(),
-  totalEmployees: new TotalEmployees(),
-  chartEmployees: new ChartEmployees(), // Pass the instance
+  totalEmployees: new TotalEmployees(chartEmployeesInstance),
 
   render() {
     return `<div class="row m-2" style="height:70px">
@@ -80,7 +80,7 @@ export const home = {
             table-content2
           </div>
 
-          <div class="tableDepartment id="tableDepartment" border border-1 rounded-2 bg-light p-2">
+          <div class="tableDepartment" id="tableDepartment" border border-1 rounded-2 bg-light p-2">
             <table class="table table-hover table-dark">
               <thead>
                 <tr>
@@ -126,7 +126,7 @@ export const home = {
       const yearOption = event.target.value;
       const monthOption = selectMonthElement.value;
       await this.totalEmployees.updateTotalHtml(yearOption, monthOption);
-      await this.chartEmployees.generateSalaryChart(yearOption);
+      await this.totalEmployees.updateChartHtml(yearOption);
     });
   },
 
@@ -137,9 +137,7 @@ export const home = {
       selectYearElement.value,
       selectMonthElement.value
     );
-    console.log("ongoing running this");
-    console.log(this.totalEmployees._monthlySalaryData);
-    await this.chartEmployees.generateSalaryChart(selectYearElement.value);
+    await this.totalEmployees.updateChartHtml(selectYearElement.value);
   },
 
   async afterRender() {

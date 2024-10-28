@@ -4,14 +4,8 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 Chart.register(...registerables, ChartDataLabels);
 
 export class ChartEmployees {
-  constructor() {}
-
-  async generateSalaryChart({ year }) {
-    const { monthArray, totalEmployeesArray, salaryArray } =
-      cleaningdata.yearlyChartData({
-        data: this.monthSalaryData,
-        year,
-      });
+  async generateSalaryChart(monthlyData) {
+    const { monthArray, totalEmployeesArray, salaryArray } = monthlyData;
 
     console.log(monthArray, totalEmployeesArray, salaryArray);
     const config = {
@@ -142,12 +136,12 @@ export class ChartEmployees {
       config
     );
 
-    // const containerBody = document.querySelector(".chart-content1");
-    // const chartLabelsLength = salaryChart.data.labels.length;
+    const containerBody = document.querySelector(".chart-content1");
+    const chartLabelsLength = salaryChart.data.labels.length;
 
-    // if (chartLabelsLength > 7) {
-    //   const newWidth = 700 + (chartLabelsLength - 7) * 30;
-    //   containerBody.style.width = `${newWidth}px`;
-    // }
+    if (chartLabelsLength > 7) {
+      const newWidth = 700 + (chartLabelsLength - 7) * 30;
+      containerBody.style.width = `${newWidth}px`;
+    }
   }
 }
