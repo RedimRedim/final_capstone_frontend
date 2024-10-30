@@ -50,7 +50,10 @@ export const payroll = {
                     </div>
                 </form>
 
+            <input type="file" multiple accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" ></input>
+
             </div>
+
 
             <div class="row m-2 ">
                 <div class="container">

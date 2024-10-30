@@ -41,6 +41,7 @@ export const home = {
 
 
       <div class="row m-2">
+        <div class="totalTitle">Total Based in Salary Released Month</div>
         <div class="d-flex flex-row p-0 gap-3">
           <div class="totalContent  border border-1 rounded-2 bg-light">
             <p class="totalTitle">Total Employee</p>
@@ -75,6 +76,7 @@ export const home = {
       </div>
 
       <div class="row m-2">
+        <div class="totalTitle">Total Based in Selected Month & Year</div>
         <div class="content1 d-flex flex-row gap-2 p-0 w-100">
           <div class="table-content2  border border-1 rounded-2 bg-light p-2">
             table-content2

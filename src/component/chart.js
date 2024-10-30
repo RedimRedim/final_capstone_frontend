@@ -106,7 +106,7 @@ export class ChartEmployees {
         plugins: {
           title: {
             display: true,
-            text: "Monthly Salary vs Monthly Employee",
+            text: "Monthly Salary vs Monthly Employee Released",
             font: {
               size: 20,
               weight: "bold",
@@ -136,12 +136,12 @@ export class ChartEmployees {
       config
     );
 
-    const containerBody = document.querySelector(".chart-content1");
-    const chartLabelsLength = salaryChart.data.labels.length;
+    // const containerBody = document.querySelector(".chart-content1");
+    // const chartLabelsLength = salaryChart.data.labels.length;
 
-    if (chartLabelsLength > 7) {
-      const newWidth = 700 + (chartLabelsLength - 7) * 30;
-      containerBody.style.width = `${newWidth}px`;
-    }
+    // if (chartLabelsLength > 7) {
+    //   const newWidth = 700 + (chartLabelsLength - 7) * 30;
+    //   containerBody.style.width = `${newWidth}px`;
+    // }
   }
 }
