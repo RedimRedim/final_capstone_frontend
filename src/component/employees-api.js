@@ -1,7 +1,9 @@
 const API_URL = "http://localhost:2000";
 
 export class Employees {
-  constructor() {}
+  constructor() {
+    this.dataEmployees;
+  }
 
   async getEmployees() {
     try {
@@ -9,10 +11,16 @@ export class Employees {
         method: "GET",
       });
       const data = await response.json();
-      return data.employees;
+      this.dataEmployees = data.employees;
+      return this.dataEmployees;
     } catch (error) {
       return error;
     }
+  }
+
+  async getEmployeesId(empId) {
+    const empData = this.dataEmployees.filter((item) => item.uuid == empId);
+    return empData[0];
   }
 
   async getMonthlySalary() {
@@ -41,6 +49,7 @@ export class Employees {
   }
   async postEmployee(formData) {
     try {
+      console.log(API_URL);
       const response = await fetch(`${API_URL}/api/employees`, {
         method: "POST",
         headers: {
@@ -50,7 +59,7 @@ export class Employees {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response}`);
+        throw new Error(`HTTP error! status: ${response.text}`);
       }
 
       const data = await response.json();

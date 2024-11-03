@@ -37,6 +37,8 @@
     "whatwg-fetch": "^3.6.2"
   },
   "dependencies": {
+    "ag-grid-community": "^32.3.2",
+    "ag-grid-react": "^32.3.2",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.4",
     "chartjs-plugin-datalabels": "^2.2.0",
