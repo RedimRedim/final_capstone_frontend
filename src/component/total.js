@@ -1,20 +1,23 @@
-import { Employees } from "./employees-api";
-import { CleaningData } from "../utils/datacleaning/clean";
+import { cleaningDataInstance } from "../utils/datacleaning/clean";
+import { chartEmployeesInstance } from "./chart";
+import { employeesInstance } from "./employees-api";
 
-export class TotalEmployees extends Employees {
-  constructor(chartEmployeesInstance) {
-    super();
-    this.chartEmployeesInstance = chartEmployeesInstance; //chartEmployees instance
-    this._monthlySalaryData = null;
-    this.cleaningData = new CleaningData();
+export class TotalEmployees {
+  constructor() {
+    this.monthlySalaryData = null;
+    this.chartEmployeesInstance = chartEmployeesInstance;
+    this.cleaningData = cleaningDataInstance;
+    this.employeesInstance = employeesInstance;
   }
 
   async updateTotalHtml(year, month) {
-    const data = await this.getMonthlySalary();
-    const deptData = await this.getMonthlyDepartment(year, month);
-    this._monthlySalaryData = data; //save data
+    this.monthlySalaryData = await this.employeesInstance.getMonthlySalary();
+    const deptData = await this.employeesInstance.getMonthlyDepartment(
+      year,
+      month
+    );
     let monthDataResult = [];
-    data.forEach((data) => {
+    this.monthlySalaryData.forEach((data) => {
       if (data.month == month && data.year == year) {
         monthDataResult = {
           month: data.month,
@@ -27,8 +30,6 @@ export class TotalEmployees extends Employees {
         };
       }
     });
-
-    console.log(year, month);
 
     //DepartmentData no need to check data.month & data.year
     monthDataResult.departmentData =
@@ -43,7 +44,7 @@ export class TotalEmployees extends Employees {
 
   async updateChartHtml(year) {
     const monthlyData = this.cleaningData.yearlyChartData({
-      data: this._monthlySalaryData,
+      data: this.monthlySalaryData,
       year,
     });
     await this.chartEmployeesInstance.generateSalaryChart(monthlyData);

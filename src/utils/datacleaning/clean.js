@@ -1,4 +1,4 @@
-export class CleaningData {
+class CleaningData {
   constructor() {}
 
   monthlyDepartmentDataHtml(data) {
@@ -25,3 +25,5 @@ export class CleaningData {
     return { monthArray, totalEmployeesArray, salaryArray };
   }
 }
+
+export const cleaningDataInstance = new CleaningData();

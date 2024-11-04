@@ -1,8 +1,9 @@
 const API_URL = "http://localhost:2000";
 
-export class Employees {
+class Employees {
   constructor() {
     this.dataEmployees;
+    this.monthlyData;
   }
 
   async getEmployees() {
@@ -25,10 +26,17 @@ export class Employees {
 
   async getMonthlySalary() {
     try {
-      const response = await fetch(`${API_URL}/api/employees/monthly-salary/`);
+      if (typeof this.monthlyData === "undefined") {
+        const response = await fetch(
+          `${API_URL}/api/employees/monthly-salary/`
+        );
 
-      const monthlyData = await response.json();
-      return monthlyData.data;
+        const monthlyData = await response.json();
+        this.monthlyData = monthlyData.data;
+        return this.monthlyData;
+      }
+
+      return this.monthlyData;
     } catch (error) {
       return error;
     }
@@ -65,7 +73,51 @@ export class Employees {
       const data = await response.json();
       alert(`Adding new employee, ${JSON.stringify(data)}`);
     } catch (error) {
-      console.log(error);
+      alert("Error adding new employee", error);
+    }
+  }
+
+  async patchEmployee(empId, formData) {
+    try {
+      console.log(formData);
+      const response = await fetch(`${API_URL}/api/employees/${empId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.text}`);
+      }
+
+      const data = await response.json();
+      alert(`Adding new employee, ${JSON.stringify(data)}`);
+    } catch (error) {
+      alert("Error adding new employee", error);
+    }
+  }
+
+  async deleteEmployee(empId) {
+    try {
+      const response = await fetch(`${API_URL}/api/employees/${empId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.text}'`);
+      }
+
+      const data = await response.json();
+      alert(`Deleted employee, ${JSON.strngify(data)}`);
+    } catch (error) {
+      alert("Error deleting employee", error);
     }
   }
 }
+
+export const employeesInstance = new Employees();

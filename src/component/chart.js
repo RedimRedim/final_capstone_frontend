@@ -3,7 +3,7 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 
 Chart.register(...registerables, ChartDataLabels);
 
-export class ChartEmployees {
+class ChartEmployees {
   async generateSalaryChart(monthlyData) {
     const { monthArray, totalEmployeesArray, salaryArray } = monthlyData;
 
@@ -145,3 +145,5 @@ export class ChartEmployees {
     // }
   }
 }
+
+export const chartEmployeesInstance = new ChartEmployees();

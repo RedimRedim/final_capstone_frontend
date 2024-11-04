@@ -1,17 +1,15 @@
-import { Employees } from "../component/employees-api";
+import { employeesInstance } from "../component/employees-api";
 import DataTable from "datatables.net-bs5";
-import { Modal } from "bootstrap";
-import { empForm, updateEmpDetailsForm } from "../utils/htmlhelper/emp-form";
 import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
 let dataTableInstance;
-import { empUpdateModalHtml, empDelModalHtml } from "../utils/htmlhelper/modal";
+import { payrollModalInstance } from "../utils/htmlhelper/modal";
 export const payroll = {
-  employees: new Employees(),
+  employeesInstance,
+  payrollModalInstance,
 
   render() {
     return `<div class="row m-2">
-
-              ${empForm}
+              ${this.payrollModalInstance.empForm}
             <input type="file" multiple accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" ></input>
 
             </div>
@@ -41,30 +39,14 @@ export const payroll = {
                     </table>
                 </div>
             </div>
-            
+          
             <!-- Modal -->
-           ${empUpdateModalHtml(empForm)}
-           ${empDelModalHtml}`;
-  },
-
-  initListener() {
-    this.formListener();
-    this.updateDeleteModalListener();
-  },
-
-  formListener() {
-    const form = document.getElementById("createEmpForm");
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
-      this.employees.postEmployee(data);
-    });
+            <div class="modalData"></div>`;
   },
 
   async updateEmpTableBody() {
-    const empData = await this.employees.getEmployees();
+    // UPDATE ENTIRE TABLE
+    const empData = await this.employeesInstance.getEmployees();
     let empTableHtml = [];
     empData.forEach((data) => {
       empTableHtml.push(`
@@ -102,24 +84,19 @@ export const payroll = {
     }
   },
 
-  updateDeleteModalListener() {
-    const updateModalBtns = document.querySelectorAll("#updateBtn");
-    updateModalBtns.forEach((btn) => {
-      btn.addEventListener("click", async () => {
-        const updateModal = new Modal(document.getElementById("updateModal"));
-        const empId = btn.getAttribute("data-uuid");
-        const empDetails = await this.employees.getEmployeesId(empId);
-        updateEmpDetailsForm(empDetails);
-        updateModal.show();
-      });
-    });
+  initListener() {
+    this.formListener();
+    this.payrollModalInstance.initListener();
+  },
 
-    const deleteModalBtns = document.querySelectorAll("#delBtn");
-    deleteModalBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const modal = new Modal(document.getElementById("deleteModal"));
-        modal.show();
-      });
+  formListener() {
+    const form = document.getElementById("createEmpForm");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      this.employeesInstance.postEmployee(data);
     });
   },
 

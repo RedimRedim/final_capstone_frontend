@@ -1,7 +1,7 @@
 export const empForm = `<form id="createEmpForm">
 <div class="emp-group">
     <label for="name">Name</label>
-    <input type="text" id="name" name="name" required>
+    <input type="text" id="name" name="name" minlength="5" required>
 </div>
 
 <div class="emp-group">
@@ -55,15 +55,14 @@ export const empForm = `<form id="createEmpForm">
 </form>`;
 
 export const updateEmpDetailsForm = (empDetails) => {
-  console.log(empDetails.dayOff);
   const modalBody = document.querySelector("#updateModal .modal-body");
   modalBody.innerHTML = `
-  <form id="createEmpForm">
+  <form id="updateEmpForm">
 <div class="emp-group">
     <label for="name">Name</label>
     <input type="text" id="name" name="name" value="${
       empDetails.name
-    }" required>
+    }" minlength="5" required>
 </div>
 
 <div class="emp-group">
@@ -133,8 +132,28 @@ export const updateEmpDetailsForm = (empDetails) => {
         </select>                        
     </div>
 
+   
+    <div class="emp-group">
+        <label for="isResignTrue">Resign: </label>
+        <input type="radio" name="isResign" id="isResignTrue" value="true" ${
+          empDetails.isResign ? "checked" : ""
+        }>
+        <label for="isResignFalse">True</label>
+        <input type="radio" name="isResign" id="isResignFalse" value="false" ${
+          !empDetails.isResign ? "checked" : ""
+        }>
+        <label for="isResign">False</label>
+    </div>
 
-    <input type="submit" id="saveEmp" class="btn btn-primary" value="Submit">
+    <div class="emp-group" ${isResign ? 'style="display: none"' : ""}>
+        <label for ="resignDate">Resign Date:</label>
+        <input type="date" id="resignDate" name="resignDate" value="${
+          empDetails.isResign
+            ? new Date(empDetails.resignDate).toISOString().split("T")[0]
+            : ""
+        }">
+    </div>
+
 </div>
 </form>`;
 };

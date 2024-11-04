@@ -1,10 +1,9 @@
 import { TotalEmployees } from "../component/total";
-import { Employees } from "../component/employees-api";
-import { ChartEmployees } from "../component/chart";
-const chartEmployeesInstance = new ChartEmployees(); // Pass the instance
+import { employeesInstance } from "../component/employees-api";
+import { chartEmployeesInstance } from "../component/chart";
 
 export const home = {
-  employees: new Employees(),
+  employees: employeesInstance,
   totalEmployees: new TotalEmployees(chartEmployeesInstance),
 
   render() {
