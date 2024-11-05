@@ -1,17 +1,17 @@
 import { Chart, registerables } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
-
+import { cleaningDataInstance } from "../utils/datacleaning/clean";
 Chart.register(...registerables, ChartDataLabels);
 
 class ChartEmployees {
   async generateSalaryChart(monthlyData) {
     const { monthArray, totalEmployeesArray, salaryArray } = monthlyData;
-
+    console.log(monthArray);
     console.log(monthArray, totalEmployeesArray, salaryArray);
     const config = {
       type: "bar",
       data: {
-        labels: monthArray,
+        labels: cleaningDataInstance.transformingMonth(monthArray),
         datasets: [
           {
             label: "Monthly Salary",
@@ -38,8 +38,8 @@ class ChartEmployees {
               },
               color: "black",
               anchor: "end",
-              align: "center",
-              offset: 5, // Adjust this value for spacing
+              align: "end",
+              offset: 25, // Adjust this value for spacing
             },
           },
           {
@@ -68,7 +68,7 @@ class ChartEmployees {
               color: "black",
               anchor: "center",
               align: "bottom",
-              offset: 5,
+              offset: 10,
             },
           },
         ],
