@@ -1,7 +1,4 @@
 import { employeesInstance } from "../component/employees-api";
-import DataTable from "datatables.net-bs5";
-import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
-let dataTableInstance;
 import { payrollModalInstance } from "../utils/htmlhelper/modal";
 export const payroll = {
   employeesInstance,
@@ -28,6 +25,7 @@ export const payroll = {
                                 <th scope="col" id="basicSalary">Basic Salary</th>
                                 <th scope="col" id="dayOff">Day Off</th>
                                 <th scope="col" id="isResign">isResign</th>
+                                <th scope="col" id="resignDate">resignDate</th>
                                 <th scope="col" id="createdDate">Created Date</th>
                                 <th scope="col" id="updatedDate">Updated Date</th>
                                 <th scope="col" id="edit">Edit</th>
@@ -44,46 +42,6 @@ export const payroll = {
             <div class="modalData"></div>`;
   },
 
-  async updateEmpTableBody() {
-    // UPDATE ENTIRE TABLE
-    const empData = await this.employeesInstance.getEmployees();
-    let empTableHtml = [];
-    empData.forEach((data) => {
-      empTableHtml.push(`
-        <tr>
-        <td data-uuid="${data.uuid}">${data.uuid}</td>
-        <td data-name="${data.name}">${data.name}</td>
-        <td data-sex="${data.sex}">${data.sex}</td>
-        <td data-department="${data.department}">${data.department}</td>
-        <td data-employee-type="${data.employeeType}">${data.employeeType}</td>
-        <td data-role="${data.role}">${data.role}</td>
-        <td data-basic-salary="${data.basicSalary}">${data.basicSalary}</td>
-        <td data-day-off="${data.dayOff}">${data.dayOff}</td>
-        <td data-is-resign="${data.isResign}">${data.isResign}</td>
-        <td data-created-date="${data.createdDate}">${data.createdDate}</td>
-        <td data-updated-date="${data.updatedDate}">${data.updatedDate}</td>
-        <td>
-            <button class="btn btn-primary update-btn" id="updateBtn" data-uuid="${data.uuid}" data-toggle="modal" data-target"=#updateModal">Update</button>
-            <button class="delete-btn" id="delBtn" data-uuid="${data.uuid}">Delete</button>
-        </td>
-    </tr>
-          `);
-    });
-
-    document.getElementById("empTableBody").innerHTML = empTableHtml.join("");
-
-    // Initialize DataTable after updating the table body
-    if (!dataTableInstance) {
-      dataTableInstance = new DataTable("#payrollTable", {
-        responsive: true,
-      }); // Initialize only once
-    } else {
-      dataTableInstance.clear(); // Clear previous data
-      dataTableInstance.rows.add(empData); // Add new data
-      dataTableInstance.draw(); // Re-draw the DataTable with updated data
-    }
-  },
-
   initListener() {
     this.formListener();
     this.payrollModalInstance.initListener();
@@ -96,12 +54,19 @@ export const payroll = {
 
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries());
-      this.employeesInstance.postEmployee(data);
+
+      try {
+        await this.employeesInstance.postEmployee(data);
+        await this.payrollModalInstance.updateEmpTableBody();
+        form.reset();
+      } catch (error) {
+        console.error("Error adding employee:", error);
+      }
     });
   },
 
   async afterRender() {
-    await this.updateEmpTableBody();
+    await this.payrollModalInstance.updateEmpTableBody();
     this.initListener();
   },
 };

@@ -89,13 +89,19 @@ class Employees {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.text}`);
+        const errorData = await response.json();
+        throw new Error(
+          `Failed to Update Employee, message: 
+          ${errorData.error}`
+        );
       }
 
       const data = await response.json();
       alert(`Adding new employee, ${JSON.stringify(data)}`);
+      return true;
     } catch (error) {
-      alert("Error adding new employee", error);
+      alert(error);
+      return false;
     }
   }
 
@@ -109,13 +115,18 @@ class Employees {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.text}'`);
+        const errorData = await response.json();
+        throw new Error(
+          `HTTP error! status: ${response.status}, ${errorData}'`
+        );
       }
 
       const data = await response.json();
-      alert(`Deleted employee, ${JSON.strngify(data)}`);
+      alert(` ${JSON.stringify(data)}`);
+      return true;
     } catch (error) {
       alert("Error deleting employee", error);
+      return false;
     }
   }
 }

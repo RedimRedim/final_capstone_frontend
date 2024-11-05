@@ -1,6 +1,9 @@
 import { Modal } from "bootstrap";
 import { employeesInstance } from "../../component/employees-api";
 import { empForm, updateEmpDetailsForm } from "./emp-form.js";
+import DataTable from "datatables.net-bs5";
+let dataTableInstance;
+import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
 
 class PayrollModalClass {
   constructor() {
@@ -9,9 +12,70 @@ class PayrollModalClass {
     this.empDetails;
   }
 
+  async updateEmpTableBody() {
+    // UPDATE ENTIRE TABLE
+    const empData = await this.employeesInstance.getEmployees();
+    let empTableHtml = [];
+    let formattedData = [];
+    empData.forEach((data) => {
+      empTableHtml.push(`
+        <tr>
+        <td data-uuid="${data.uuid}">${data.uuid}</td>
+        <td data-name="${data.name}">${data.name}</td>
+        <td data-sex="${data.sex}">${data.sex}</td>
+        <td data-department="${data.department}">${data.department}</td>
+        <td data-employee-type="${data.employeeType}">${data.employeeType}</td>
+        <td data-role="${data.role}">${data.role}</td>
+        <td data-basic-salary="${data.basicSalary}">${data.basicSalary}</td>
+        <td data-day-off="${data.dayOff}">${data.dayOff}</td>
+        <td data-is-resign="${data.isResign}">${data.isResign}</td>
+        <td data-resign-date="${data.resignDate}">${data.resignDate}</td>
+        <td data-created-date="${data.createdDate}">${data.createdDate}</td>
+        <td data-updated-date="${data.updatedDate}">${data.updatedDate}</td>
+        <td>
+            <button class="btn btn-primary update-btn" id="updateBtn" data-uuid="${data.uuid}" data-toggle="modal" data-target"=#updateModal">Update</button>
+            <button class="delete-btn" id="delBtn" data-uuid="${data.uuid}">Delete</button>
+        </td>
+    </tr>
+          `);
+      // Push formatted data for DataTable
+      formattedData.push([
+        data.uuid,
+        data.name,
+        data.sex,
+        data.department,
+        data.employeeType,
+        data.role,
+        data.basicSalary,
+        data.dayOff,
+        data.isResign,
+        data.resignDate,
+        data.createdDate,
+        data.updatedDate,
+        ` <button class="btn btn-primary update-btn" id="updateBtn" data-uuid="${data.uuid}" data-toggle="modal" data-target"=#updateModal">Update</button>
+              <button class="delete-btn" id="delBtn" data-uuid="${data.uuid}">Delete</button>`,
+      ]);
+    });
+
+    document.getElementById("empTableBody").innerHTML = empTableHtml.join("");
+
+    // Initialize DataTable after updating the table body
+    if (!dataTableInstance) {
+      dataTableInstance = new DataTable("#payrollTable", {
+        responsive: true,
+      }); // Initialize only once
+    } else {
+      dataTableInstance.clear(); // Clear previous data
+      dataTableInstance.rows.add(formattedData); // Add new data
+      dataTableInstance.draw(); // Re-draw the DataTable with updated data
+    }
+  }
+
   initListener() {
     this.setupModalHtml();
     this.updateDeleteModalListener();
+    this.saveChangesListener = this.updateEmpData.bind(this); // Store the bound function
+    this.delChangesListener = this.delEmpData.bind(this);
   }
 
   setupModalHtml() {
@@ -58,7 +122,7 @@ class PayrollModalClass {
           
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary del-emp-Data">Delete</button>
+            <button type="button" class="btn btn-primary del-emp-data">Delete</button>
           </div>
 
       </div>
@@ -69,7 +133,7 @@ class PayrollModalClass {
 
   updateDeleteModalListener() {
     const empTableDiv = document.getElementById("empTableBody");
-
+    empTableDiv.removeEventListener("click", this.handleClick.bind(this));
     empTableDiv.addEventListener("click", this.handleClick.bind(this));
   }
 
@@ -81,53 +145,88 @@ class PayrollModalClass {
       const updateModal = new Modal(document.getElementById("updateModal"));
       updateModal.show();
       this.showingResignDateListener();
-      await this.PutEmpData(event);
+      this.addSaveChangesListener();
     }
 
     if (event.target.classList.contains("delete-btn")) {
       this.uuid = event.target.dataset.uuid;
-      const modal = new Modal(document.getElementById("deleteModal"));
-      modal.show();
-      await this.delEmpData(event);
+      console.log(this.uuid);
+      const delModal = new Modal(document.getElementById("deleteModal"));
+      delModal.show();
+      this.deleteListener();
     }
   }
 
-  async PutEmpData(event) {
-    if (event.target.classList.contains("update-emp-data")) {
-      const data = {
-        name: document.querySelector("#updateEmpForm .emp-group #name").value,
-        sex: document.querySelector(
-          '#updateEmpForm .emp-group input[name="sex"]:checked'
-        ).value,
-        department: document.querySelector("#updateEmpForm select#department")
-          .value,
-        employeeType: document.querySelector(
-          "#updateEmpForm select#employeeType"
-        ).value,
-        role: document.querySelector("#updateEmpForm .emp-group #role").value,
-        basicSalary: document.querySelector(
-          "#updateEmpForm .emp-group #basicSalary"
-        ).value,
-        dayOff: document.querySelector("#updateEmpForm select#dayOff").value,
-        isResign:
-          document.querySelector('input[name="isResign"]:checked').value ==
-          "true"
-            ? true
-            : false,
-        resignDate:
-          document.querySelector('input[name="isResign"]:checked').value ==
-          "true"
-            ? document.querySelector("#updateEmpForm input#resignDate").value
-            : new Date("1970-01-01"),
-      };
-      await this.employeesInstance.patchEmployee(empId, data);
+  addSaveChangesListener() {
+    const saveChanges = document.querySelector(".update-emp-data");
+    if (saveChanges) {
+      saveChanges.removeEventListener("click", this.saveChangesListener);
+      saveChanges.addEventListener("click", this.saveChangesListener);
     }
   }
 
-  async delEmpData(event) {
-    console.log(event.target);
-    if (event.target.classList.contains("del-emp-Data")) {
-      await this.employeesInstance.deleteEmployee(this.uuid);
+  deleteListener() {
+    const deleteBtn = document.querySelector(".del-emp-data");
+    if (deleteBtn) {
+      deleteBtn.removeEventListener("click", this.delChangesListener);
+      deleteBtn.addEventListener("click", this.delChangesListener);
+    }
+  }
+
+  async updateEmpData() {
+    const data = {
+      name: document.querySelector("#updateEmpForm .emp-group #name").value,
+      sex: document.querySelector(
+        '#updateEmpForm .emp-group input[name="sex"]:checked'
+      ).value,
+      department: document.querySelector("#updateEmpForm select#department")
+        .value,
+      employeeType: document.querySelector("#updateEmpForm select#employeeType")
+        .value,
+      role: document.querySelector("#updateEmpForm .emp-group #role").value,
+      basicSalary: document.querySelector(
+        "#updateEmpForm .emp-group #basicSalary"
+      ).value,
+      dayOff: document.querySelector("#updateEmpForm select#dayOff").value,
+      isResign:
+        document.querySelector('input[name="isResign"]:checked').value == "true"
+          ? true
+          : false,
+      resignDate:
+        document.querySelector('input[name="isResign"]:checked').value == "true"
+          ? document.querySelector("#updateEmpForm input#resignDate").value
+          : new Date("1970-01-01"),
+    };
+
+    try {
+      const updateEmployee = await this.employeesInstance.patchEmployee(
+        this.uuid,
+        data
+      );
+      if (updateEmployee) {
+        const updateModalBtn = Modal.getInstance(
+          document.getElementById("updateModal")
+        );
+        updateModalBtn.hide();
+        await this.updateEmpTableBody();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async delEmpData() {
+    try {
+      const delEmployee = await this.employeesInstance.deleteEmployee(
+        this.uuid
+      );
+      const delModal = Modal.getInstance(
+        document.getElementById("deleteModal")
+      );
+      delModal.hide();
+      await this.updateEmpTableBody();
+    } catch (error) {
+      console.error(error);
     }
   }
 
