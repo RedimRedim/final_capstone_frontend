@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-
+const Dotenv = require("dotenv-webpack");
 module.exports = {
   entry: {
     main: "./src/views/main.js",
@@ -35,11 +35,14 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
 
-    new HtmlWebpackPlugin({
-      filename: "main.html",
-      template: path.resolve(__dirname, "./src/templates/main.html"),
-      chunks: ["main"], // Include only the payroll bundle
-    }),
+    new HtmlWebpackPlugin(
+      {
+        filename: "main.html",
+        template: path.resolve(__dirname, "./src/templates/main.html"),
+        chunks: ["main"], // Include only the payroll bundle
+      },
+      new Dotenv()
+    ),
 
     // new HtmlWebpackPlugin({
     //   filename: "payroll.html",

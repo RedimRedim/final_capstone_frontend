@@ -122,7 +122,7 @@ class Employees {
       }
 
       const data = await response.json();
-      alert(` ${JSON.stringify(data)}`);
+      alert(`${JSON.stringify(data)}`);
       return true;
     } catch (error) {
       alert("Error deleting employee", error);

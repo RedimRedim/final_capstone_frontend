@@ -7,7 +7,6 @@ export const payroll = {
   render() {
     return `<div class="row m-2">
               ${this.payrollModalInstance.empForm}
-            <input type="file" multiple accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" ></input>
 
             </div>
 
