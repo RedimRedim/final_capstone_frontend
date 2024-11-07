@@ -14,6 +14,7 @@ class EmployeesSalary {
 
         console.log(response);
         const result = await response.json();
+        return result.data;
       } catch (error) {
         console.log(error);
       }
@@ -22,9 +23,9 @@ class EmployeesSalary {
     }
   }
 
-  async updateSalaryTableBody() {
+  async updateSalaryTableBody(result) {
     let salaryTableHtml = [];
-    this.calculateSalaryData.forEach((data) => {
+    result.forEach((data) => {
       salaryTableHtml.push(
         `
         <tr>

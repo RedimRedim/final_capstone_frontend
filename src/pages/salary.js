@@ -1,10 +1,41 @@
 import { employeesSalaryInstance } from "../component/employees-salary";
-//import { createGrid } from 'ag-grid-community';
 
 export const salary = {
   render() {
     return `<div class="row m-2">
     
+    <div class="selection-content d-flex flex-row p-0 border border-1 rounded-2 bg-light p-2 flex-grow-1 align-items-center">
+      <div class="year-timekeeping-content ">
+              <select class="form-select" id="yearSelect" aria-label="Select Year">
+                <option value="2024">2024</option>
+              </select>
+      </div>
+
+    <div class="month-timekeeping-content ">
+            <select class="form-select" id="monthSelect" aria-label="Select Month">
+              <option value="1">Jan</option>
+              <option value="2">Feb</option>
+              <option value="3">Mar</option>
+              <option value="4">Apr</option>
+              <option value="5">May</option>
+              <option value="6">Jun</option>
+              <option value="7">Jul</option>
+              <option value="8">Aug</option>
+              <option value="9">Sep</option>
+              <option value="10">Oct</option>
+              <option value="11">Nov</option>
+              <option value="12">Dec</option>
+            </select>
+    </div>
+    </div>
+
+
+    <form id="uploadTimekeepingForm">
+      <label> Import Timekeeping with RD *.xlsx* format:</label>
+      <input type="file" id="fileTimekeeping" name="fileTimekeeping" multiple accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" >
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+
     <div class="selection-content d-flex flex-row p-0 border border-1 rounded-2 bg-light p-2 flex-grow-1 align-items-center">
       <div class="year-salary-content ">
               <select class="form-select" id="yearSelect" aria-label="Select Year">
@@ -30,12 +61,6 @@ export const salary = {
     </div>
     </div>
 
-
-    <form id="uploadTimekeepingForm">
-      <label> Import Timekeeping with RD *.xlsx* format:</label>
-      <input type="file" id="fileTimekeeping" name="fileTimekeeping" multiple accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" >
-      <button class="btn btn-primary" type="submit">Submit</button>
-    </form>
 
      <div class="row m-2 ">
                 <div class="container">
@@ -68,13 +93,11 @@ export const salary = {
                     </table>
                 </div>
             </div>
-
     </div>`;
   },
 
   initListener() {
-    this.readInputFileFormListener(0);
-    //this.testGrid();
+    this.readInputFileFormListener();
   },
 
   readInputFileFormListener() {
@@ -84,7 +107,13 @@ export const salary = {
         event.preventDefault();
         const fileInput = document.getElementById("fileTimekeeping");
         const file = fileInput.files[0];
-        employeesSalaryInstance.calculateTimekeepingApi(file);
+        const result = await employeesSalaryInstance.calculateTimekeepingApi(
+          file
+        );
+        if (result) {
+          console.log(result);
+          employeesSalaryInstance.updateSalaryTableBody(result);
+        }
       });
   },
 
