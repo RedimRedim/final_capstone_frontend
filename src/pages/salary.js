@@ -4,47 +4,48 @@ export const salary = {
   render() {
     return `<div class="row m-2">
     
-    <div class="selection-content d-flex flex-row p-0 border border-1 rounded-2 bg-light p-2 flex-grow-1 align-items-center">
-      <div class="year-timekeeping-content ">
-              <select class="form-select" id="yearSelect" aria-label="Select Year">
-                <option value="2024">2024</option>
+    <form id="uploadTimekeepingForm">
+      <div class="selection-content d-flex flex-row p-0 border border-1 rounded-2 bg-light p-2 flex-grow-1 align-items-center">
+        <div class="year-timekeeping-content ">
+                <select class="form-select" id="yearSelectTimekeeping" aria-label="Select Year">
+                  <option value="2024">2024</option>
+                </select>
+        </div>
+
+      <div class="month-timekeeping-content ">
+              <select class="form-select" id="monthSelectTimekeeping" aria-label="Select Month">
+                <option value="1">Jan</option>
+                <option value="2">Feb</option>
+                <option value="3">Mar</option>
+                <option value="4">Apr</option>
+                <option value="5">May</option>
+                <option value="6">Jun</option>
+                <option value="7">Jul</option>
+                <option value="8">Aug</option>
+                <option value="9">Sep</option>
+                <option value="10">Oct</option>
+                <option value="11">Nov</option>
+                <option value="12">Dec</option>
               </select>
       </div>
-
-    <div class="month-timekeeping-content ">
-            <select class="form-select" id="monthSelect" aria-label="Select Month">
-              <option value="1">Jan</option>
-              <option value="2">Feb</option>
-              <option value="3">Mar</option>
-              <option value="4">Apr</option>
-              <option value="5">May</option>
-              <option value="6">Jun</option>
-              <option value="7">Jul</option>
-              <option value="8">Aug</option>
-              <option value="9">Sep</option>
-              <option value="10">Oct</option>
-              <option value="11">Nov</option>
-              <option value="12">Dec</option>
-            </select>
-    </div>
-    </div>
+      </div>
 
 
-    <form id="uploadTimekeepingForm">
+    
       <label> Import Timekeeping with RD *.xlsx* format:</label>
       <input type="file" id="fileTimekeeping" name="fileTimekeeping" multiple accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" >
-      <button class="btn btn-primary" type="submit">Submit</button>
+      <button class="btn btn-primary" type="submit" id="timekeepingSubmitBtn">Submit</button>
     </form>
 
     <div class="selection-content d-flex flex-row p-0 border border-1 rounded-2 bg-light p-2 flex-grow-1 align-items-center">
       <div class="year-salary-content ">
-              <select class="form-select" id="yearSelect" aria-label="Select Year">
+              <select class="form-select" id="yearSelectSalary" aria-label="Select Year">
                 <option value="2024">2024</option>
               </select>
       </div>
 
     <div class="month-salary-content ">
-            <select class="form-select" id="monthSelect" aria-label="Select Month">
+            <select class="form-select" id="monthSelectSalary" aria-label="Select Month">
               <option value="1">Jan</option>
               <option value="2">Feb</option>
               <option value="3">Mar</option>
@@ -58,6 +59,10 @@ export const salary = {
               <option value="11">Nov</option>
               <option value="12">Dec</option>
             </select>
+    </div>
+
+    <div class="button-salary-content" id="salarySubmitBtn">
+    <button class="btn btn-primary">Submit</button>
     </div>
     </div>
 
@@ -96,28 +101,7 @@ export const salary = {
     </div>`;
   },
 
-  initListener() {
-    this.readInputFileFormListener();
-  },
-
-  readInputFileFormListener() {
-    document
-      .getElementById("uploadTimekeepingForm")
-      .addEventListener("submit", async (event) => {
-        event.preventDefault();
-        const fileInput = document.getElementById("fileTimekeeping");
-        const file = fileInput.files[0];
-        const result = await employeesSalaryInstance.calculateTimekeepingApi(
-          file
-        );
-        if (result) {
-          console.log(result);
-          employeesSalaryInstance.updateSalaryTableBody(result);
-        }
-      });
-  },
-
   async afterRender() {
-    this.initListener();
+    employeesSalaryInstance.initListener();
   },
 };

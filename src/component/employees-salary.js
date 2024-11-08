@@ -1,11 +1,47 @@
 class EmployeesSalary {
   constructor() {}
 
-  async calculateTimekeepingApi(file) {
-    if (file) {
-      const formData = new FormData();
-      formData.append("file", file);
+  async salaryTableListener() {
+    document
+      .getElementById("salarySubmitBtn")
+      .addEventListener("click", async () => {
+        const year = document.querySelector("#yearSelectSalary").value;
+        const month = document.querySelector("#monthSelectSalary").value;
+        const result = await this.getMonthlySalaryApi({ year, month });
 
+        this.updateSalaryTableBody(result);
+      });
+  }
+
+  async timekeepingTableListener() {
+    document
+      .getElementById("uploadTimekeepingForm")
+      .addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const fileInput = document.getElementById("fileTimekeeping");
+        const file = fileInput.files[0];
+        const formData = new FormData();
+
+        const timekeepingYear = document.querySelector(
+          "#yearSelectTimekeeping"
+        ).value;
+        const timekeepingMonth = document.querySelector(
+          "#monthSelectTimekeeping"
+        ).value;
+
+        formData.append("timekeepingYear", timekeepingYear);
+        formData.append("timekeepingMonth", timekeepingMonth);
+        formData.append("file", file);
+        const result = await this.calculateTimekeepingApi(formData);
+
+        if (result) {
+          console.log(result);
+        }
+      });
+  }
+
+  async calculateTimekeepingApi(formData) {
+    if (formData) {
       try {
         const response = await fetch("http://127.0.0.1:5000/upload", {
           method: "POST",
@@ -23,8 +59,36 @@ class EmployeesSalary {
     }
   }
 
+  async getMonthlySalaryApi({ year, month }) {
+    try {
+      const params = new URLSearchParams({
+        year: year.toString(),
+        month: month.toString(),
+      });
+
+      const response = await fetch(
+        `http://localhost:2000/api/salary?${params.toString()}`,
+        {
+          method: "GET",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      return result.data;
+    } catch (error) {
+      console.log(error);
+      alert("Error fetching monthly salary data", error);
+    }
+  }
+
   async updateSalaryTableBody(result) {
     let salaryTableHtml = [];
+    if (!result.length > 0)
+      return (document.getElementById("salaryTableBody").innerHTML = "No Data");
     result.forEach((data) => {
       salaryTableHtml.push(
         `
@@ -54,6 +118,11 @@ class EmployeesSalary {
 
     document.getElementById("salaryTableBody").innerHTML =
       salaryTableHtml.join("");
+  }
+
+  initListener() {
+    this.timekeepingTableListener();
+    this.salaryTableListener();
   }
 }
 
