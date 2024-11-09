@@ -1,9 +1,9 @@
 import { TotalEmployees } from "../component/total";
-import { employeesInstance } from "../component/employees-api";
+import { employeesApiInstance } from "../component/employees-api";
 import { chartEmployeesInstance } from "../component/chart";
 
 export const home = {
-  employees: employeesInstance,
+  employees: employeesApiInstance,
   totalEmployees: new TotalEmployees(chartEmployeesInstance),
 
   render() {

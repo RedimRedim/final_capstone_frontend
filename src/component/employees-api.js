@@ -131,4 +131,4 @@ class Employees {
   }
 }
 
-export const employeesInstance = new Employees();
+export const employeesApiInstance = new Employees();

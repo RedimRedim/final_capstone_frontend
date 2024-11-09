@@ -1,12 +1,12 @@
-import { employeesInstance } from "../component/employees-api";
-import { payrollModalInstance } from "../utils/htmlhelper/modal";
-export const payroll = {
-  employeesInstance,
-  payrollModalInstance,
+import { employeesApiInstance } from "../component/employees-api";
+import { employeesModalInstance } from "../utils/htmlhelper/modal";
+export const employees = {
+  employeesApiInstance,
+  employeesModalInstance,
 
   render() {
     return `<div class="row m-2">
-              ${this.payrollModalInstance.empForm}
+              ${this.employeesModalInstance.empForm}
 
             </div>
 
@@ -41,9 +41,10 @@ export const payroll = {
             <div class="modalData"></div>`;
   },
 
-  initListener() {
+  async initListener() {
+    await this.employeesModalInstance.updateEmpTableBody();
     this.formListener();
-    this.payrollModalInstance.initListener();
+    this.employeesModalInstance.initListener();
   },
 
   formListener() {
@@ -55,8 +56,8 @@ export const payroll = {
       const data = Object.fromEntries(formData.entries());
 
       try {
-        await this.employeesInstance.postEmployee(data);
-        await this.payrollModalInstance.updateEmpTableBody();
+        await this.employeesApiInstance.postEmployee(data);
+        await this.employeesModalInstance.updateEmpTableBody();
         form.reset();
       } catch (error) {
         console.error("Error adding employee:", error);
@@ -65,7 +66,6 @@ export const payroll = {
   },
 
   async afterRender() {
-    await this.payrollModalInstance.updateEmpTableBody();
     this.initListener();
   },
 };

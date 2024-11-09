@@ -6,8 +6,6 @@ Chart.register(...registerables, ChartDataLabels);
 class ChartEmployees {
   async generateSalaryChart(monthlyData) {
     const { monthArray, totalEmployeesArray, salaryArray } = monthlyData;
-    console.log(monthArray);
-    console.log(monthArray, totalEmployeesArray, salaryArray);
     const config = {
       type: "bar",
       data: {
@@ -30,7 +28,10 @@ class ChartEmployees {
             order: 1, // Set order to be drawn first
             datalabels: {
               display: function (context) {
-                return context.dataset.data[context.dataIndex] > 0;
+                const value = context.dataset.data[context.dataIndex];
+                if (value > 0) {
+                  return cleaningDataInstance.commaSeperator(value);
+                }
               },
               font: {
                 weight: "bold",

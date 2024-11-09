@@ -21,3 +21,17 @@ export const currentMonthSelection = () => {
 
   return months[currentMonthIndex];
 };
+
+export const navbarActiveConfiguration = (url) => {
+  url = url == "/" ? "home" : url.replace(/\//g, "");
+  const navbarLinks = document.querySelectorAll(".navbar-link");
+  navbarLinks.forEach((link) => {
+    let anchor = link.querySelector("a");
+    let currentHrefValue = anchor.textContent.toLocaleLowerCase();
+    if (currentHrefValue.includes(url)) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+};

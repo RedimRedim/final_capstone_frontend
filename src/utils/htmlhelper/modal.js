@@ -1,20 +1,27 @@
 import { Modal } from "bootstrap";
-import { employeesInstance } from "../../component/employees-api";
+import { employeesApiInstance } from "../../component/employees-api";
 import { empForm, updateEmpDetailsForm } from "./emp-form.js";
 import DataTable from "datatables.net-bs5";
 let dataTableInstance;
 import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
 
-class PayrollModalClass {
+class EmployeeModalClass {
   constructor() {
-    this.employeesInstance = employeesInstance;
+    this.employeesApiInstance = employeesApiInstance;
     this.empForm = empForm;
     this.empDetails;
   }
 
+  initListener() {
+    this.setupModalHtml();
+    this.updateDeleteModalListener();
+    this.saveChangesListener = this.updateEmpData.bind(this); // Store the bound function
+    this.delChangesListener = this.delEmpData.bind(this);
+  }
+
   async updateEmpTableBody() {
     // UPDATE ENTIRE TABLE
-    const empData = await this.employeesInstance.getEmployees();
+    const empData = await this.employeesApiInstance.getEmployees();
     let empTableHtml = [];
     let formattedData = [];
     empData.forEach((data) => {
@@ -71,13 +78,6 @@ class PayrollModalClass {
     }
   }
 
-  initListener() {
-    this.setupModalHtml();
-    this.updateDeleteModalListener();
-    this.saveChangesListener = this.updateEmpData.bind(this); // Store the bound function
-    this.delChangesListener = this.delEmpData.bind(this);
-  }
-
   setupModalHtml() {
     document.querySelector(".modalData").innerHTML =
       this.empUpdateModalHtml() + this.empDelModalHtml();
@@ -95,10 +95,10 @@ class PayrollModalClass {
                   </div>
                   <div class="modal-body">
                   ${empForm}
-                  </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary update-emp-data" id="updateEmpDataBtn">Save changes</button>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -140,7 +140,9 @@ class PayrollModalClass {
   async handleClick(event) {
     if (event.target.classList.contains("update-btn")) {
       this.uuid = event.target.getAttribute("data-uuid");
-      this.empDetails = await this.employeesInstance.getEmployeesId(this.uuid);
+      this.empDetails = await this.employeesApiInstance.getEmployeesId(
+        this.uuid
+      );
       updateEmpDetailsForm(this.empDetails);
       const updateModal = new Modal(document.getElementById("updateModal"));
       updateModal.show();
@@ -199,10 +201,12 @@ class PayrollModalClass {
     };
 
     try {
-      const updateEmployee = await this.employeesInstance.patchEmployee(
+      const updateEmployee = await this.employeesApiInstance.patchEmployee(
         this.uuid,
         data
       );
+
+      console.log(updateEmployee);
       if (updateEmployee) {
         const updateModalBtn = Modal.getInstance(
           document.getElementById("updateModal")
@@ -217,9 +221,7 @@ class PayrollModalClass {
 
   async delEmpData() {
     try {
-      const delEmployee = await this.employeesInstance.deleteEmployee(
-        this.uuid
-      );
+      await this.employeesApiInstance.deleteEmployee(this.uuid);
       const delModal = Modal.getInstance(
         document.getElementById("deleteModal")
       );
@@ -253,12 +255,6 @@ class PayrollModalClass {
       });
     });
   }
-
-  delEmpDataListener() {
-    document.getElementById("delEmpData").addEventListener("click", (event) => {
-      console.log(`Deleted employee data ${this.uuid}`);
-    });
-  }
 }
 
-export const payrollModalInstance = new PayrollModalClass();
+export const employeesModalInstance = new EmployeeModalClass();

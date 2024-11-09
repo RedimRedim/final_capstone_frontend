@@ -36,6 +36,10 @@ body {
   cursor: pointer;
 }
 
+.active {
+  background-color: rgb(12, 103, 238);
+}
+
 /* .app-bar_brand {
   margin-left: 2em;
   width: 200px;
@@ -60,9 +64,7 @@ body {
   overflow: hidden;
   flex-grow: 1;
   z-index: 999;
-}
-
-.app-bar__navigation {
+  width: 100%;
   justify-content: flex-end;
   margin-right: 2em;
 }
@@ -72,18 +74,20 @@ body {
 }
 
 .app-bar__navigation ul {
-  justify-content: flex-end;
+  min-width: 44px;
+  min-height: 44px;
   list-style-type: none;
   padding: 0;
-  margin: 0;
 }
 
 .app-bar .app-bar__navigation ul li a {
   display: block; /* Allows the link to behave like a block */
   min-width: 44px;
   min-height: 44px;
+  margin-left: 1em;
   text-decoration: none;
   color: rgb(255, 255, 255);
+  align-content: center;
 }
 
 .navbar {
@@ -99,7 +103,7 @@ body {
 }
 
 .navbar li a {
-  color: rgb(255, 255, 255);
+  color: rgb(13, 110, 253);
   text-decoration: none;
 }
 
@@ -125,4 +129,15 @@ body {
 
 .totalValue {
   font-size: 1.5rem;
+}
+
+label {
+  min-width: 50px;
+  min-height: 50px;
+}
+
+.emp-group,
+.emp-group label {
+  align-items: center;
+  align-self: center;
 }

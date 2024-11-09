@@ -1,7 +1,7 @@
 import DrawerInitiator from "../utils/drawer-initiator";
 import UrlParser from "../routes/urlparser";
 import { routes } from "../component/routes";
-
+import { navbarActiveConfiguration } from "../utils/domrelated";
 class App {
   constructor({ button, drawer, content }) {
     this._button = button;
@@ -16,14 +16,12 @@ class App {
       drawer: this._drawer,
       content: this._content,
     });
-
-    // kita bisa menginisiasikan komponen lain bila ada
   }
 
   async renderPage() {
     const url = UrlParser.parseActiveUrlWithCombiner();
     const page = routes[url];
-    console.log(page);
+    navbarActiveConfiguration(url);
     this._content.innerHTML = await page.render();
     await page.afterRender();
   }

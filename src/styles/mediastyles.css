@@ -19,7 +19,8 @@
   }
 
   .app-bar__navigation {
-    display: flex; /* Show navigation on larger screens */
+    /* //display: flex; Show navigation on larger screens */
+
     position: relative; /* Adjust positioning */
     left: 0; /* Reset left position */
   }

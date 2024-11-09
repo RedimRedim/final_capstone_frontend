@@ -48,11 +48,15 @@ class EmployeesSalary {
           body: formData,
         });
 
-        console.log(response);
         const result = await response.json();
-        return result.data;
+
+        if (response.ok) {
+          return result.data;
+        } else {
+          throw new Error(` ${result.error}`);
+        }
       } catch (error) {
-        console.log(error);
+        alert(error);
       }
     } else {
       alert("Please select a file before uploading");

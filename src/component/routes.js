@@ -1,9 +1,10 @@
+import { employees } from "../pages/employees.js";
 import { home } from "../pages/home.js";
-import { payroll } from "../pages/payroll.js";
+employees;
 import { salary } from "../pages/salary.js";
 
 export const routes = {
   "/": home,
-  "/payroll": payroll,
+  "/employees": employees,
   "/salary": salary,
 };

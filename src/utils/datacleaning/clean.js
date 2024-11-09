@@ -43,6 +43,10 @@ class CleaningData {
 
     return monthArray.map((month) => monthMap[month]);
   }
+
+  commaSeperator(value) {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 }
 
 export const cleaningDataInstance = new CleaningData();

@@ -1,18 +1,18 @@
 import { cleaningDataInstance } from "../utils/datacleaning/clean";
 import { chartEmployeesInstance } from "./chart";
-import { employeesInstance } from "./employees-api";
+import { employeesApiInstance } from "./employees-api";
 
 export class TotalEmployees {
   constructor() {
     this.monthlySalaryData = null;
     this.chartEmployeesInstance = chartEmployeesInstance;
     this.cleaningData = cleaningDataInstance;
-    this.employeesInstance = employeesInstance;
+    this.employeesApiInstance = employeesApiInstance;
   }
 
   async updateTotalHtml(year, month) {
-    this.monthlySalaryData = await this.employeesInstance.getMonthlySalary();
-    const deptData = await this.employeesInstance.getMonthlyDepartment(
+    this.monthlySalaryData = await this.employeesApiInstance.getMonthlySalary();
+    const deptData = await this.employeesApiInstance.getMonthlyDepartment(
       year,
       month
     );
