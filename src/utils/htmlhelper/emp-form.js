@@ -1,25 +1,25 @@
+import { cleaningDataInstance } from "../datacleaning/clean";
 export const empForm = `
 
-<h3>Add Employees:</h3>
 
-<form id="createEmpForm" >
+<form id="createEmpForm" style="width: 60%; display:none;">
 <div class="emp-group row">
     <label for="name" class="col-sm-2 col-form-label">Name</label>
     <div class="col-sm-10">
-    <input type="text" id="name" class="form-control" name="name" minlength="5" required>
+    <input type="text" pattern="[A-Za-z\s]+"  title="Only letters and spaces allowed"  id="name" class="form-control" name="name" minlength="5" required>
     </div>
 </div>
 
-  <div class="emp-group  row">
+  <div class="emp-group row">
       <label for="sex" class="col-sm-2 col-form-label">Sex</label>
       
-      <div class="col-sm-10 d-flex align-content-center align-items-center" >
-        <div class="form-check form-check-inline">
+      <div class="col-sm-10 d-flex align-items-center">
+        <div class="form-check form-check-inline d-flex align-items-center">
           <input class="form-check-input" type="radio" name="sex" id="female" value="Female">
           <label class="form-check-label" for="female">Female</label>
         </div>
       
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline d-flex align-items-center">
           <input class="form-check-input" type="radio" name="sex" id="male" value="Male">
           <label class="form-check-label" for="male">Male</label>
         </div>
@@ -52,7 +52,7 @@ export const empForm = `
     <div class="emp-group  row">
         <label for="role" class="col-sm-2 col-form-label">Role</label>
          <div class="col-sm-10">
-            <input type="text" id="role" name="role" class="col-sm-2 form-control"required>
+            <input type="text" pattern="[A-Za-z\s]+"  id="role" title="Only letters and spaces allowed"  name="role" class="col-sm-2 form-control" required>
         </div>
     </div>
 
@@ -95,7 +95,7 @@ export const updateEmpDetailsForm = (empDetails) => {
 <div class="emp-group row">
     <label class="col-sm-2 col-form-label" for="sex">Sex</label>
     
-    <div class="col-sm-10" >
+    <div class="col-sm-10 d-flex align-items-center">
       <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="sex" id="female" value="Female" ${
           empDetails.sex === "Female" ? "checked" : ""
@@ -147,7 +147,7 @@ export const updateEmpDetailsForm = (empDetails) => {
 
     <div class="emp-group row">
         <label class="col-sm-2 col-form-label" for="role">Role</label>
-        <div class="col-sm-10">
+        <div class="col-sm-10 row">
             <input class="col-sm-2 form-control" type="text" id="role" name="role" value="${
               empDetails.role
             }" required>
@@ -157,9 +157,9 @@ export const updateEmpDetailsForm = (empDetails) => {
       <div class="emp-group row">
         <label class="col-sm-2 col-form-label" for="bacisSalary">Basic Salary</label>
         <div class="col-sm-10">
-            <input class="col-sm-2 form-control" type="number" id="basicSalary" name="basicSalary" value="${
+            <input class="col-sm-2 form-control" type="number" id="basicSalary" name="basicSalary" value="${cleaningDataInstance.formatStringtoNumber(
               empDetails.basicSalary
-            }" required>
+            )}" required>
         </div>
     </div>
 

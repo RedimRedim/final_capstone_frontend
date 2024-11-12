@@ -1,5 +1,5 @@
-const API_URL = "http://localhost:2000";
-
+const API_URL = process.env.NODE_API_URL;
+import { cleaningDataInstance } from "../utils/datacleaning/clean";
 class Employees {
   constructor() {
     this.dataEmployees;
@@ -13,6 +13,9 @@ class Employees {
       });
       const data = await response.json();
       this.dataEmployees = data.employees;
+      this.dataEmployees = cleaningDataInstance.transformingEmployeesData(
+        this.dataEmployees
+      );
       return this.dataEmployees;
     } catch (error) {
       return error;

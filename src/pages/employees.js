@@ -6,13 +6,15 @@ export const employees = {
 
   render() {
     return `<div class="row m-2">
+              <div>
+                <button type="button" class="btn btn-primary" id="addEmployee">Add Employee Form</button>
+              </div>
               ${this.employeesModalInstance.empForm}
-
             </div>
 
             <div class="row m-2 ">
-                <div class="container">
-                    <table class="table table-hover  table-striped align: middle" id="payrollTable">
+                <div class="salaryTableContainer">
+                    <table class="table table-hover  table-striped" id="payrollTable">
                         <thead class="text-center align: middle">
                             <tr>
                                 <th scope="col" id="uuid">Uuid</th>
@@ -43,8 +45,25 @@ export const employees = {
 
   async initListener() {
     await this.employeesModalInstance.updateEmpTableBody();
+    this.addEmployeeListener();
     this.formListener();
     this.employeesModalInstance.initListener();
+  },
+
+  addEmployeeListener() {
+    const addEmployeeHtml = document.querySelector("#addEmployee");
+    const createEmpForm = document.getElementById("createEmpForm");
+    addEmployeeHtml.addEventListener("click", () => {
+      const isFormVisible = createEmpForm.style.display === "block";
+
+      createEmpForm.style.display = isFormVisible ? "none" : "block";
+      addEmployeeHtml.textContent = isFormVisible
+        ? "Add Employee Form"
+        : "Hide Employee Form";
+
+      addEmployeeHtml.classList.toggle("btn-primary", isFormVisible);
+      addEmployeeHtml.classList.toggle("btn-secondary", !isFormVisible);
+    });
   },
 
   formListener() {

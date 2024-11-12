@@ -34,15 +34,12 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-
-    new HtmlWebpackPlugin(
-      {
-        filename: "main.html",
-        template: path.resolve(__dirname, "./src/templates/main.html"),
-        chunks: ["main"], // Include only the payroll bundle
-      },
-      new Dotenv()
-    ),
+    new Dotenv(),
+    new HtmlWebpackPlugin({
+      filename: "main.html",
+      template: path.resolve(__dirname, "./src/templates/main.html"),
+      chunks: ["main"], // Include only the payroll bundle
+    }),
 
     // new HtmlWebpackPlugin({
     //   filename: "payroll.html",

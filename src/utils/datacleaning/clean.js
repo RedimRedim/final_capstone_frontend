@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 class CleaningData {
   constructor() {}
 
@@ -46,6 +48,44 @@ class CleaningData {
 
   commaSeperator(value) {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  formatDateTime(value) {
+    return moment(value).format("YYYY-MM-DD hh:mm:ss");
+  }
+
+  transformingEmployeesData(dataArray) {
+    return dataArray.map((data) => {
+      data.basicSalary = this.commaSeperator(data.basicSalary);
+      data.date = this.formatDateTime(data.date);
+      data.resignDate = data.resignDate.includes("1970")
+        ? ""
+        : this.formatDateTime(data.resignDate);
+      data.createdDate = this.formatDateTime(data.createdDate);
+      data.updatedDate = this.formatDateTime(data.updatedDate);
+      data.updatedDate = this.formatDateTime(data.updatedDate);
+      return data;
+    });
+  }
+
+  formatStringtoNumber(value) {
+    return Number(value.replace(/,/g, ""));
+  }
+
+  transformingSalaryData(dataArray) {
+    return dataArray.map((data) => {
+      data.basicSalary = this.commaSeperator(data.basicSalary);
+      data.dailySalary = this.commaSeperator(data.dailySalary);
+      data.baseSalary = this.commaSeperator(data.baseSalary);
+      data.lateDeduction = this.commaSeperator(data.lateDeduction);
+      data.absentDeduction = this.commaSeperator(data.absentDeduction);
+      data.totalReleasedSalary = this.commaSeperator(data.totalReleasedSalary);
+      data.date = this.formatDateTime(data.date);
+      data.createdDate = this.formatDateTime(data.createdDate);
+      data.updatedDate = this.formatDateTime(data.updatedDate);
+      data.updatedDate = this.formatDateTime(data.updatedDate);
+      return data;
+    });
   }
 }
 

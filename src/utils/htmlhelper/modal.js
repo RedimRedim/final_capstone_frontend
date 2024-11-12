@@ -41,7 +41,7 @@ class EmployeeModalClass {
         <td data-updated-date="${data.updatedDate}">${data.updatedDate}</td>
         <td>
             <button class="btn btn-primary update-btn" id="updateBtn" data-uuid="${data.uuid}" data-toggle="modal" data-target"=#updateModal">Update</button>
-            <button class="delete-btn" id="delBtn" data-uuid="${data.uuid}">Delete</button>
+            <button class="btn btn-secondary delete-btn" id="delBtn" data-uuid="${data.uuid}">Delete</button>
         </td>
     </tr>
           `);
@@ -88,10 +88,9 @@ class EmployeeModalClass {
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="updateModalLabel">Modal title</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+                    <span aria-hidden="true">&times;</span></button>
+                    <h5 class="modal-title" id="updateModalLabel">Update Employee Details:</h5>
                   </div>
                   <div class="modal-body">
                   ${empForm}
@@ -110,15 +109,16 @@ class EmployeeModalClass {
     <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-          <h5 class="modal-title" id="confirmDeleteLabel">Confirm Delete</h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
           </button>
+          <h5 class="modal-title" id="confirmDeleteLabel">Confirm Delete:</h5>
+          </div>
 
           <div class="modal-body">
-            Are you sure you want to delete this item? ${this.uuid}
-
+              <div class="row p-2 delDetails"></div>
           </div>
+
           
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -154,6 +154,7 @@ class EmployeeModalClass {
       this.uuid = event.target.dataset.uuid;
       console.log(this.uuid);
       const delModal = new Modal(document.getElementById("deleteModal"));
+      this.deleteEmpId();
       delModal.show();
       this.deleteListener();
     }
@@ -173,6 +174,12 @@ class EmployeeModalClass {
       deleteBtn.removeEventListener("click", this.delChangesListener);
       deleteBtn.addEventListener("click", this.delChangesListener);
     }
+  }
+
+  async deleteEmpId() {
+    document.querySelector(
+      ".delDetails"
+    ).innerHTML = `Are you sure you want to delete this item "${this.uuid}"?`;
   }
 
   async updateEmpData() {
@@ -238,8 +245,6 @@ class EmployeeModalClass {
         const isResignTrue = document.querySelector(
           'input[name="isResign"]:checked'
         ).value;
-
-        console.log(isResignTrue);
 
         if (isResignTrue === "true") {
           const isResignHtml = document.querySelector(

@@ -1,5 +1,10 @@
+const API_URL = process.env.NODE_API_URL;
+import { cleaningDataInstance } from "../utils/datacleaning/clean";
+
 class EmployeesSalary {
-  constructor() {}
+  constructor() {
+    this.formattedData;
+  }
 
   async salaryTableListener() {
     document
@@ -8,7 +13,8 @@ class EmployeesSalary {
         const year = document.querySelector("#yearSelectSalary").value;
         const month = document.querySelector("#monthSelectSalary").value;
         const result = await this.getMonthlySalaryApi({ year, month });
-
+        this.formattedData =
+          cleaningDataInstance.transformingSalaryData(result);
         this.updateSalaryTableBody(result);
       });
   }
@@ -43,7 +49,8 @@ class EmployeesSalary {
   async calculateTimekeepingApi(formData) {
     if (formData) {
       try {
-        const response = await fetch("http://127.0.0.1:5000/upload", {
+        console.log();
+        const response = await fetch(`${API_URL}/upload`, {
           method: "POST",
           body: formData,
         });
@@ -71,7 +78,7 @@ class EmployeesSalary {
       });
 
       const response = await fetch(
-        `http://localhost:2000/api/salary?${params.toString()}`,
+        `${API_URL}/api/salary?${params.toString()}`,
         {
           method: "GET",
         }
