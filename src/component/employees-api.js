@@ -8,7 +8,7 @@ class Employees {
 
   async getEmployees() {
     try {
-      const response = await fetch(`${API_URL}/api/employees`, {
+      const response = await fetch(`/api/employees`, {
         method: "GET",
       });
       const data = await response.json();
@@ -30,9 +30,7 @@ class Employees {
   async getMonthlySalary() {
     try {
       if (typeof this.monthlyData === "undefined") {
-        const response = await fetch(
-          `${API_URL}/api/employees/monthly-salary/`
-        );
+        const response = await fetch(`/api/employees/monthly-salary/`);
 
         const monthlyData = await response.json();
         this.monthlyData = monthlyData.data;
@@ -49,7 +47,7 @@ class Employees {
     try {
       const reqQueryDate = `${year}-${month}`;
       const response = await fetch(
-        `${API_URL}/api/employees/monthly-department/?date=${reqQueryDate}`
+        `/api/employees/monthly-department/?date=${reqQueryDate}`
       );
 
       const monthlyData = await response.json();
@@ -61,7 +59,7 @@ class Employees {
   async postEmployee(formData) {
     try {
       console.log(API_URL);
-      const response = await fetch(`${API_URL}/api/employees`, {
+      const response = await fetch(`/api/employees`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,7 +81,7 @@ class Employees {
   async patchEmployee(empId, formData) {
     try {
       console.log(formData);
-      const response = await fetch(`${API_URL}/api/employees/${empId}`, {
+      const response = await fetch(`/api/employees/${empId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -110,7 +108,7 @@ class Employees {
 
   async deleteEmployee(empId) {
     try {
-      const response = await fetch(`${API_URL}/api/employees/${empId}`, {
+      const response = await fetch(`/api/employees/${empId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
