@@ -1,4 +1,4 @@
-const API_URL = process.env.NODE_API_URL;
+const API_URL = "https://finalcapstonebackend-production.up.railway.app";
 import { cleaningDataInstance } from "../utils/datacleaning/clean";
 class Employees {
   constructor() {
