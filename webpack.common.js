@@ -11,6 +11,7 @@ module.exports = {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
+    publicPath: "/", // Serve assets from the root path
   },
   devServer: {
     compress: true,
@@ -35,9 +36,10 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new Dotenv(),
+
     new HtmlWebpackPlugin({
-      filename: "main.html",
-      template: path.resolve(__dirname, "./src/templates/main.html"),
+      filename: "index.html",
+      template: path.resolve(__dirname, "./src/templates/index.html"),
       chunks: ["main"], // Include only the payroll bundle
     }),
 
