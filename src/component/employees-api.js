@@ -50,7 +50,7 @@ class Employees {
     try {
       const reqQueryDate = `${year}-${month}`;
       const response = await fetch(
-        `/api/employees/monthly-department/?date=${reqQueryDate}`
+        `${API_URL}/api/employees/monthly-department/?date=${reqQueryDate}`
       );
 
       const monthlyData = await response.json();
