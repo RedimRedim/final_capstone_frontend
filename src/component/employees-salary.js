@@ -1,4 +1,4 @@
-const API_URL = process.env.PYTHON_API_URL;
+const API_URL = "https://finalcapstonebackendpython-production.up.railway.app";
 import { cleaningDataInstance } from "../utils/datacleaning/clean";
 
 class EmployeesSalary {
