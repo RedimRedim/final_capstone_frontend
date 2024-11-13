@@ -1,4 +1,5 @@
 const API_URL = "https://finalcapstonebackend-production.up.railway.app";
+console.log(API_URL);
 import { cleaningDataInstance } from "../utils/datacleaning/clean";
 class Employees {
   constructor() {
