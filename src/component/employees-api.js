@@ -116,6 +116,7 @@ class Employees {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include", // Include cookies (if required for authentication)
       });
 
       if (!response.ok) {
