@@ -117,7 +117,6 @@ class Employees {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include", // If required
       });
 
       if (!response.ok) {
