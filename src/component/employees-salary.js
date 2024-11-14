@@ -77,12 +77,9 @@ class EmployeesSalary {
         month: month.toString(),
       });
 
-      const response = await fetch(
-        `${API_URL}/api/salary?${params.toString()}`,
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch(`/api/salary?${params.toString()}`, {
+        method: "GET",
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
