@@ -111,26 +111,27 @@ class Employees {
 
   async deleteEmployee(empId) {
     try {
+      console.log(empId);
       const response = await fetch(`${API_URL}/api/employees/${empId}`, {
-        method: "DELETE",
+        method: "DELETE", // Ensure method is DELETE here
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include", // Include cookies (if required for authentication)
+        credentials: "include", // If required
       });
 
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
-          `HTTP error! status: ${response.status}, ${errorData}'`
+          `HTTP error! Status: ${response.status}, ${JSON.stringify(errorData)}`
         );
       }
 
       const data = await response.json();
-      alert(`${JSON.stringify(data)}`);
+      alert("Employee deleted: " + JSON.stringify(data));
       return true;
     } catch (error) {
-      alert("Error deleting employee", error);
+      alert("Error deleting employee: " + error.message);
       return false;
     }
   }

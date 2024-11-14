@@ -228,6 +228,7 @@ class EmployeeModalClass {
 
   async delEmpData() {
     try {
+      console.log("Deleting employee with ID:", this.uuid);
       await this.employeesApiInstance.deleteEmployee(this.uuid);
       const delModal = Modal.getInstance(
         document.getElementById("deleteModal")
