@@ -198,16 +198,17 @@ export const updateEmpDetailsForm = (empDetails) => {
         </div>
     </div>
 
-    <div class="emp-group row " ${isResign ? 'style="display: none"' : ""}>
-        <label class="col-sm-2 col-form-label" for ="resignDate">Resign Date:</label>
-        
-        <div class="col-sm-10">
-        <input class="col-sm-2" type="date" id="resignDate" name="resignDate" value="${
-          empDetails.isResign
-            ? new Date(empDetails.resignDate).toISOString().split("T")[0]
-            : ""
-        }">
-        </div>
+    <div class="emp-group row " >
+    <label class="col-sm-2 col-form-label" for ="resignDate">Resign Date:</label>
+    <div class="col-sm-10" style="${
+      empDetails.isResign ? "display: block;" : "display: none;"
+    }">
+      <input class="form-control" type="date" id="resignDate" name="resignDate" value="${
+        empDetails.isResign
+          ? new Date(empDetails.resignDate).toISOString().split("T")[0]
+          : ""
+      }">  
+      </div>
     </div>
 
 </div>

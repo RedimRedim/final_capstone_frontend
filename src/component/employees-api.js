@@ -101,7 +101,7 @@ class Employees {
       }
 
       const data = await response.json();
-      alert(`Adding new employee, ${JSON.stringify(data)}`);
+      alert(`Updating Employee ${empId} Details:, ${JSON.stringify(data)}`);
       return true;
     } catch (error) {
       alert(error);

@@ -1,0 +1,11 @@
+td:nth-child(9),
+td:nth-child(14) {
+  border-right: 1px solid black;
+}
+
+td:nth-child(13),
+td:nth-child(14),
+td:nth-child(16),
+td:nth-child(17) {
+  color: rgb(214, 27, 42);
+}

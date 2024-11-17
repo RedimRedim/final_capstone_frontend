@@ -25,8 +25,8 @@ export const employees = {
                                 <th scope="col" id="role">Role</th>
                                 <th scope="col" id="basicSalary">Basic Salary</th>
                                 <th scope="col" id="dayOff">Day Off</th>
-                                <th scope="col" id="isResign">isResign</th>
-                                <th scope="col" id="resignDate">resignDate</th>
+                                <th scope="col" id="isResign">Is Resign</th>
+                                <th scope="col" id="resignDate">Resign Date</th>
                                 <th scope="col" id="createdDate">Created Date</th>
                                 <th scope="col" id="updatedDate">Updated Date</th>
                                 <th scope="col" id="edit">Edit</th>

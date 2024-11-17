@@ -1,4 +1,6 @@
-const API_URL = "https://finalcapstonebackendpython-production.up.railway.app";
+const API_URL = "https://finalcapstonebackend-production.up.railway.app";
+const PYTHON_API_URL =
+  "https://finalcapstonebackendpython-production.up.railway.app";
 import { cleaningDataInstance } from "../utils/datacleaning/clean";
 
 class EmployeesSalary {
@@ -50,7 +52,7 @@ class EmployeesSalary {
     if (formData) {
       try {
         console.log();
-        const response = await fetch(`${API_URL}/upload`, {
+        const response = await fetch(`${PYTHON_API_URL}/upload`, {
           method: "POST",
           body: formData,
         });
@@ -58,9 +60,13 @@ class EmployeesSalary {
         const result = await response.json();
 
         if (response.ok) {
+          alert(`Year: ${formData.get(
+            "timekeepingYear"
+          )}, Month: ${formData.get("timekeepingMonth")}
+          Timekeeping & Salary Data has been calculated... `);
           return result.data;
         } else {
-          throw new Error(` ${result.error}`);
+          throw new Error(` ${result.detail}`);
         }
       } catch (error) {
         alert(error);
@@ -77,9 +83,12 @@ class EmployeesSalary {
         month: month.toString(),
       });
 
-      const response = await fetch(`/api/salary?${params.toString()}`, {
-        method: "GET",
-      });
+      const response = await fetch(
+        `${API_URL}/api/salary?${params.toString()}`,
+        {
+          method: "GET",
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -109,9 +118,9 @@ class EmployeesSalary {
         <td data-role="${data.role}">${data.role}</td>
         <td data-required-workdays="${data.requiredWorkDays}">${data.requiredWorkDays}</td>
         <td data-required-restdays="${data.requiredRestDays}">${data.requiredRestDays}</td>
+        <td data-day-off="${data.dayOff}">${data.dayOff}</td>
         <td data-basic-salary="${data.basicSalary}">${data.basicSalary}</td>
         <td data-daily-salary="${data.dailySalary}">${data.dailySalary}</td>
-        <td data-day-off="${data.dayOff}">${data.dayOff}</td>
         <td data-finished-work="${data.finishedWork}">${data.finishedWork}</td>
         <td data-late="${data.late}">${data.late}</td>
         <td data-absent="${data.absent}">${data.absent}</td>

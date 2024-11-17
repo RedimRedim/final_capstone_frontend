@@ -78,18 +78,18 @@ export const salary = {
                                 <th scope="col" id="department">Department</th>
                                 <th scope="col" id="employeeType">Employee Type</th>
                                 <th scope="col" id="role">Role</th>
-                                 <th scope="col" id="requiredWorkDays">requiredWorkDays</th>
-                                <th scope="col" id="requiredRestDays">requiredRestDays</th>
-                                <th scope="col" id="basicSalary">Basic Salary</th>
-                                <th scope="col" id="dailySalary">dailySalary</th>
+                                 <th scope="col" id="requiredWorkDays">Required Work Days</th>
+                                <th scope="col" id="requiredRestDays">Required Rest Days</th>
                                 <th scope="col" id="dayOff">Day Off</th>
-                                <th scope="col" id="finishedWork">finishedWork</th>
-                                <th scope="col" id="late">late</th>
-                                <th scope="col" id="absent">absent</th>
-                                <th scope="col" id="baseSalary">baseSalary</th>
-                                <th scope="col" id="lateDeduction">lateDeduction</th>
-                                <th scope="col" id="absentDeduction">absentDeduction</th>
-                                <th scope="col" id="totalReleasedSalary">totalReleasedSalary</th>
+                                <th scope="col" id="basicSalary">Basic Salary</th>
+                                <th scope="col" id="dailySalary">Daily Salary</th>
+                                <th scope="col" id="finishedWork">Finished Work</th>
+                                <th scope="col" id="late">Late</th>
+                                <th scope="col" id="absent">Absent</th>
+                                <th scope="col" id="baseSalary">Base Salary</th>
+                                <th scope="col" id="lateDeduction">Late Deduction</th>
+                                <th scope="col" id="absentDeduction">Absent Deduction</th>
+                                <th scope="col" id="totalReleasedSalary">Total Released Salary</th>
                             </tr>
                         </thead>
                         <tbody id="salaryTableBody">

@@ -60,7 +60,7 @@ class EmployeeModalClass {
         data.createdDate,
         data.updatedDate,
         ` <button class="btn btn-primary update-btn" id="updateBtn" data-uuid="${data.uuid}" data-toggle="modal" data-target"=#updateModal">Update</button>
-              <button class="delete-btn" id="delBtn" data-uuid="${data.uuid}">Delete</button>`,
+              <button class="btn btn-secondary delete-btn" id="delBtn" data-uuid="${data.uuid}">Delete</button>`,
       ]);
     });
 
