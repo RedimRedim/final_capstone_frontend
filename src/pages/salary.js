@@ -1,5 +1,5 @@
 import { employeesSalaryInstance } from "../component/employees-salary";
-
+import "../styles/salary-table.css";
 export const salary = {
   render() {
     return `<div class="row m-2">
