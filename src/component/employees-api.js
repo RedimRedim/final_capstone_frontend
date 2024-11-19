@@ -1,10 +1,11 @@
-const API_URL = "https://finalcapstonebackend-production.up.railway.app";
-console.log(API_URL);
+const API_URL = "http://localhost:2000";
+//const API_URL = "https://finalcapstonebackend-production.up.railway.app";
 import { cleaningDataInstance } from "../utils/datacleaning/clean";
 class Employees {
   constructor() {
     this.dataEmployees;
     this.monthlyData;
+    this.monthlySalaryData;
   }
 
   async getEmployees() {
@@ -28,12 +29,10 @@ class Employees {
     return empData[0];
   }
 
-  async getMonthlySalary() {
+  async getMonthlyEmployeesTotal() {
     try {
       if (typeof this.monthlyData === "undefined") {
-        const response = await fetch(
-          `${API_URL}/api/employees/monthly-salary/`
-        );
+        const response = await fetch(`${API_URL}/api/employees/monthly-total`);
 
         const monthlyData = await response.json();
         this.monthlyData = monthlyData.data;
@@ -46,15 +45,25 @@ class Employees {
     }
   }
 
-  async getMonthlyDepartment(year, month) {
+  async getMonthlySalaryData() {
     try {
-      const reqQueryDate = `${year}-${month}`;
+      const response = await fetch(`${API_URL}/api/employees/monthly-salary`);
+      const monthlySalaryData = await response.json();
+      this.monthlySalaryData = monthlySalaryData.data;
+      return this.monthlySalaryData;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getMonthlyDepartment() {
+    try {
       const response = await fetch(
-        `${API_URL}/api/employees/monthly-department/?date=${reqQueryDate}`
+        `${API_URL}/api/employees/monthly-department`
       );
 
       const monthlyData = await response.json();
-      return monthlyData.data;
+      return cleaningDataInstance.transformingDepartmentData(monthlyData.data);
     } catch (error) {
       return error;
     }

@@ -4,25 +4,26 @@ import { employeesApiInstance } from "./employees-api";
 
 export class TotalEmployees {
   constructor() {
-    this.monthlySalaryData = null;
+    this.monthlyTotalData = null;
+    this.monthlyTotalData = null;
+    this.yearlyEmployeeTypeData = null;
     this.chartEmployeesInstance = chartEmployeesInstance;
     this.cleaningData = cleaningDataInstance;
     this.employeesApiInstance = employeesApiInstance;
   }
 
   async updateTotalHtml(year, month) {
-    this.monthlySalaryData = await this.employeesApiInstance.getMonthlySalary();
-    const deptData = await this.employeesApiInstance.getMonthlyDepartment(
-      year,
-      month
-    );
+    this.monthlyTotalData =
+      await this.employeesApiInstance.getMonthlyEmployeesTotal();
+    const deptData = await this.employeesApiInstance.getMonthlyDepartment();
+
     let monthDataResult = [];
-    this.monthlySalaryData.forEach((data) => {
+    this.monthlyTotalData.forEach((data) => {
       if (data.month == month && data.year == year) {
         monthDataResult = {
           month: data.month,
           totalProbation: data.totalProbation,
-          totalSalary: data.totalSalary,
+          avgBasicSalary: data.avgBasicSalary,
           totalRegular: data.totalRegular,
           totalEmployees: data.totalEmployees,
           totalFemale: data.totalFemale,
@@ -31,11 +32,10 @@ export class TotalEmployees {
       }
     });
 
-    //DepartmentData no need to check data.month & data.year
     monthDataResult.departmentData =
       this.cleaningData.monthlyDepartmentDataHtml({
         deptData,
-        month,
+        month: month,
         year: year,
       });
 
@@ -43,18 +43,33 @@ export class TotalEmployees {
   }
 
   async updateChartHtml(year) {
-    const monthlyData = this.cleaningData.yearlyChartData({
+    this.monthlySalaryData =
+      await this.employeesApiInstance.getMonthlySalaryData();
+
+    this.monthlySalaryData = this.cleaningData.yearlyChartData({
       data: this.monthlySalaryData,
       year,
     });
-    await this.chartEmployeesInstance.generateSalaryChart(monthlyData);
+
+    await this.chartEmployeesInstance.generateSalaryChart(
+      this.monthlySalaryData
+    );
+
+    this.yearlyEmployeeTypeData = this.cleaningData.yearlyEmployeeTotalData({
+      data: this.monthlyTotalData,
+      year,
+    });
+
+    await this.chartEmployeesInstance.generateEmployeesTotalChart(
+      this.yearlyEmployeeTypeData
+    );
   }
 
   async renderTotalHtml(monthDataResult) {
     document.getElementById("totalEmployee").innerHTML =
       monthDataResult.totalEmployees;
-    document.getElementById("totalSalary").innerHTML =
-      monthDataResult.totalSalary;
+    document.getElementById("avgBasicSalary").innerHTML =
+      monthDataResult.avgBasicSalary;
     document.getElementById("totalRegular").innerHTML =
       monthDataResult.totalRegular;
     document.getElementById("totalProbation").innerHTML =

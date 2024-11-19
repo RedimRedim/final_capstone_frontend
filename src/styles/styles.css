@@ -163,3 +163,20 @@ tr > td {
   font-size: 30px;
   color: #000;
 }
+
+.img-fluid {
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+.rectangle {
+  width: 20px;
+  height: 20px;
+  margin-right: 1em;
+}
+
+.totalTitle {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}

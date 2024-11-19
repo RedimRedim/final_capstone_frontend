@@ -9,12 +9,12 @@ export const home = {
   render() {
     return `<div class="row m-2" style="height:70px">
         <div
-          class="selection-content d-flex flex-row p-0 border border-1 rounded-2 bg-light p-2 flex-grow-1 justify-content-end align-items-center">
+          class="selection-content d-flex flex-row p-0 gap-3 border border-1 rounded-2 bg-light p-2 flex-grow-1 justify-content-end align-items-center">
          
           <div class="year-filter-content ">
               <select class="form-select" id="yearSelect" aria-label="Select Year">
                 <option value="2023">2023</option>
-                <option value="2024">2024</option>
+                <option value="2024" selected>2024</option>
               </select>
           </div>
          
@@ -40,15 +40,14 @@ export const home = {
 
 
       <div class="row m-2">
-        <div class="totalTitle">Total Based in Salary Released Month</div>
         <div class="d-flex flex-row p-0 gap-3">
           <div class="totalContent  border border-1 rounded-2 bg-light">
-            <p class="totalTitle">Total Employee</p>
+            <p class="totalTitle">Total Employees</p>
             <div id="totalEmployee" class="totalValue"></div>
           </div>
           <div class="totalContent  border border-1 rounded-2 bg-light">
-            <p class="totalTitle">Total Salary</p>
-            <div id="totalSalary" class="totalValue"></div>
+            <p class="totalTitle">Avg Basic Salary</p>
+            <div id="avgBasicSalary" class="totalValue"></div>
           </div>
           <div class="totalContent  border border-1 rounded-2 bg-light">
             <div class="totalRegular d-flex flex-row justify-content-between align-items-center">
@@ -75,10 +74,9 @@ export const home = {
       </div>
 
       <div class="row m-2">
-        <div class="totalTitle">Total Based in Selected Month & Year</div>
         <div class="content1 d-flex flex-row gap-2 p-0 w-100">
-          <div class="table-content2  border border-1 rounded-2 bg-light p-2">
-            table-content2
+          <div class="chart-content1 p-1  border border-1 rounded-2 bg-light p-2" style="width: 32%">
+            <canvas id="totalEmployeesChart"></canvas>
           </div>
 
           <div class="tableDepartment" id="tableDepartment" border border-1 rounded-2 bg-light p-2">
@@ -86,7 +84,13 @@ export const home = {
               <thead>
                 <tr>
                   <th scope="col">Department</th>
-                  <th scope="col">Total</th>
+                  <th scope="col">Total Employees</th>
+                  <th scope="col">Total Resign</th>
+                  <th scope="col">Resign Ratio</th>
+                  <th scope="col">Late Minutes</th>
+                  <th scope="col">Absent Days</th>
+                  <th scope="col">Late Deduction</th>
+                  <th scope="col">Absent Deduction</th>
                 </tr>
               </thead>
               <tbody class="tableDepartmentBody" id="tableDepartmentBody">
@@ -100,13 +104,29 @@ export const home = {
         </div>
       </div>
 
-      <div class="row m-2 border border-1 rounded-2 bg-light">
+      <div class="row m-2 border border-1 rounded-2 bg-dark">
         <div class="content1">
           <div class="chart-content1 p-1" style="height: 400px">
             <canvas id="salaryChart"></canvas>
           </div>
         </div>
-      </div>`;
+
+
+      </div>
+      
+      <div class="row m-2">
+        <div class="col-4 border border-2 rounded-2">
+          <div class="totalTitle">
+              <div class="rectangle border border-2 fs-6" style="background-color:rgb(248,249,250)"></div>
+              Total Based in Employees Created Date
+          </div>
+          <div class="totalTitle">
+            <div class="rectangle border border-2 fs-6" style="background-color:rgb(33,37,41);"></div>
+            Total Based in Salary Released Month & Year</div>
+          </div>
+        </div>
+      </div>
+      `;
   },
 
   initListener() {

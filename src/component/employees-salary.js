@@ -1,4 +1,5 @@
-const API_URL = "https://finalcapstonebackend-production.up.railway.app";
+const API_URL = "http://localhost:2000";
+//const API_URL = "https://finalcapstonebackend-production.up.railway.app";
 const PYTHON_API_URL =
   "https://finalcapstonebackendpython-production.up.railway.app";
 import { cleaningDataInstance } from "../utils/datacleaning/clean";
@@ -6,6 +7,29 @@ import { cleaningDataInstance } from "../utils/datacleaning/clean";
 class EmployeesSalary {
   constructor() {
     this.formattedData;
+  }
+
+  async clickForDetailsListener() {
+    document.getElementById("showInformation").addEventListener("click", () => {
+      const informationDetailsDiv = document.querySelector(
+        "#informationDetails"
+      );
+
+      const informationBtn = document.querySelector("#showInformation");
+      const currentDisplay = window.getComputedStyle(
+        informationDetailsDiv
+      ).display;
+
+      if (currentDisplay === "none") {
+        informationBtn.innerHTML = "Hide Instruction";
+        informationBtn.classList.replace("btn-primary", "btn-secondary");
+        informationDetailsDiv.style.display = "block";
+      } else {
+        informationBtn.innerHTML = "Click for Instruction:";
+        informationBtn.classList.replace("btn-secondary", "btn-primary");
+        informationDetailsDiv.style.display = "none";
+      }
+    });
   }
 
   async salaryTableListener() {
@@ -118,7 +142,7 @@ class EmployeesSalary {
         <td data-role="${data.role}">${data.role}</td>
         <td data-required-workdays="${data.requiredWorkDays}">${data.requiredWorkDays}</td>
         <td data-required-restdays="${data.requiredRestDays}">${data.requiredRestDays}</td>
-        <td data-day-off="${data.dayOff}">${data.dayOff}</td>
+        <td data-total-rest-days="${data.restDay}">${data.restDay}</td>
         <td data-basic-salary="${data.basicSalary}">${data.basicSalary}</td>
         <td data-daily-salary="${data.dailySalary}">${data.dailySalary}</td>
         <td data-finished-work="${data.finishedWork}">${data.finishedWork}</td>
@@ -140,6 +164,7 @@ class EmployeesSalary {
   initListener() {
     this.timekeepingTableListener();
     this.salaryTableListener();
+    this.clickForDetailsListener();
   }
 }
 

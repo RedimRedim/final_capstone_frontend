@@ -20,6 +20,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(png|jpg|jpeg|gif|svg)$/i,
+        type: "asset/resource", // Handles images and copies them to the output directory
+      },
+      {
         test: /\.css$/,
         use: [
           {
