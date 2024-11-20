@@ -1,5 +1,5 @@
-const API_URL = "http://localhost:2000";
-//const API_URL = "https://finalcapstonebackend-production.up.railway.app";
+//const API_URL = "http://localhost:2000";
+const API_URL = "https://finalcapstonebackend-production.up.railway.app";
 import { cleaningDataInstance } from "../utils/datacleaning/clean";
 class Employees {
   constructor() {

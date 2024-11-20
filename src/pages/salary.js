@@ -138,10 +138,10 @@ export const salary = {
                       <th scope="col" id="role">Role</th>
                         <th scope="col" id="requiredWorkDays">Required Work Days</th>
                       <th scope="col" id="requiredRestDays">Required Rest Days</th>
-                      <th scope="col" id="totalRestDays">Actual Rest Days</th>
                       <th scope="col" id="basicSalary">Basic Salary</th>
                       <th scope="col" id="dailySalary">Daily Salary</th>
                       <th scope="col" id="finishedWork">Finished Work</th>
+                      <th scope="col" id="totalRestDays">Actual Rest Days</th>
                       <th scope="col" id="late">Late</th>
                       <th scope="col" id="absent">Absent</th>
                       <th scope="col" id="baseSalary">Base Salary</th>
