@@ -127,7 +127,7 @@ class ChartEmployees {
           },
           title: {
             display: true,
-            text: "Monthly Salary vs Monthly Employee Released",
+            text: "Monthly Salary Released vs Monthly Employee",
             font: {
               size: 20,
               weight: "bold",

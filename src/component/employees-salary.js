@@ -65,8 +65,8 @@ class EmployeesSalary {
         formData.append("timekeepingMonth", timekeepingMonth);
         formData.append("file", file);
         const result = await this.calculateTimekeepingApi(formData);
-
         if (result) {
+          await this.getTimekeepingCsv();
           console.log(result);
         }
       });
@@ -97,6 +97,26 @@ class EmployeesSalary {
       }
     } else {
       alert("Please select a file before uploading");
+    }
+  }
+
+  async getTimekeepingCsv() {
+    const response = await fetch(`${PYTHON_API_URL}/timekeeping/download`, {
+      method: "GET",
+    });
+
+    if (response.ok) {
+      const blob = await response.blob();
+      const timekeepingFileDiv = document.getElementById(
+        "timekeepingDownloadLink"
+      );
+      timekeepingFileDiv.href = URL.createObjectURL(blob);
+      timekeepingFileDiv.target = "_blank";
+      timekeepingFileDiv.download = "timekeeping.csv";
+      timekeepingFileDiv.style.diplsay = "inline";
+      timekeepingFileDiv.textContent = "Download Timekeeping CSV";
+    } else {
+      console.error("failed to fetch timekeeping CSV", await response.text());
     }
   }
 

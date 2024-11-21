@@ -96,6 +96,11 @@ export const salary = {
       <input type="file" id="fileTimekeeping" name="fileTimekeeping" multiple accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" >
       <button class="btn btn-primary" type="submit" id="timekeepingSubmitBtn">Submit</button>
     </form>
+
+    <div class="timekeepingFile" >
+        <a id="timekeepingDownloadLink" style="display:none">Download Timekeeping CSV</a>
+    </div>
+
     <hr>
     <h5>Monthly Employees Salary:</h5>
     <div class="selection-content d-flex m-2 gap-3 flex-row bg-light p-2 flex-grow-1 align-items-center">
