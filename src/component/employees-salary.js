@@ -113,7 +113,7 @@ class EmployeesSalary {
       timekeepingFileDiv.href = URL.createObjectURL(blob);
       timekeepingFileDiv.target = "_blank";
       timekeepingFileDiv.download = "timekeeping.csv";
-      timekeepingFileDiv.style.diplsay = "inline";
+      timekeepingFileDiv.style.display = "inline";
       timekeepingFileDiv.textContent = "Download Timekeeping CSV";
     } else {
       console.error("failed to fetch timekeeping CSV", await response.text());
