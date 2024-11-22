@@ -52,7 +52,7 @@ export const empForm = `
     <div class="emp-group  row">
         <label for="role" class="col-sm-2 col-form-label">Role</label>
          <div class="col-sm-10">
-            <input type="text" pattern="[A-Za-z\s]+"  id="role" title="Only letters and spaces allowed"  name="role" class="col-sm-2 form-control" required>
+            <input type="text"  pattern="[A-Za-z]+( [A-Za-z]+)*"  id="role" title="Only letters and spaces allowed"  name="role" class="col-sm-2 form-control" required>
         </div>
     </div>
 

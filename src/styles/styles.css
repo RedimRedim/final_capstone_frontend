@@ -180,3 +180,8 @@ tr > td {
   align-items: center;
   margin-bottom: 10px;
 }
+
+.btn {
+  min-height: 50px;
+  min-width: 50px;
+}
