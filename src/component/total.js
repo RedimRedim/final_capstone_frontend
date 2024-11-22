@@ -69,7 +69,7 @@ export class TotalEmployees {
     document.getElementById("totalEmployee").innerHTML =
       monthDataResult.totalEmployees;
     document.getElementById("avgBasicSalary").innerHTML =
-      monthDataResult.avgBasicSalary;
+      cleaningDataInstance.commaSeperator(monthDataResult.avgBasicSalary);
     document.getElementById("totalRegular").innerHTML =
       monthDataResult.totalRegular;
     document.getElementById("totalProbation").innerHTML =

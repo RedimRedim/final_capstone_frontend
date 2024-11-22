@@ -13,13 +13,13 @@ export const empForm = `
   <div class="emp-group row">
       <label for="sex" class="col-sm-2 col-form-label">Sex</label>
       
-      <div class="col-sm-10 d-flex align-items-center">
-        <div class="form-check form-check-inline d-flex align-items-center">
+      <div class="col-sm-10 d-flex ">
+        <div class="form-check form-check-inline d-flex">
           <input class="form-check-input" type="radio" name="sex" id="female" value="Female">
           <label class="form-check-label" for="female">Female</label>
         </div>
       
-        <div class="form-check form-check-inline d-flex align-items-center">
+        <div class="form-check form-check-inline d-flex">
           <input class="form-check-input" type="radio" name="sex" id="male" value="Male">
           <label class="form-check-label" for="male">Male</label>
         </div>

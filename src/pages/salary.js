@@ -97,7 +97,7 @@ export const salary = {
       <button class="btn btn-primary" type="submit" id="timekeepingSubmitBtn">Submit</button>
     </form>
 
-    <div class="timekeepingFile" >
+    <div class="timekeepingFile mb-3">
         <a class="btn btn-secondary mb-2" id="timekeepingDownloadLink" style="display:none">Download Timekeeping CSV</a>
     </div>
 
