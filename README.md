@@ -1,9 +1,9 @@
 # Company ABC - HR Analytics Dashboard
 
+## Note:
+
 Details Docs URL: https://docs.google.com/document/d/1JPRlPxJx3uEbbJ61gBRE2rREEI5pHBwXUqDEceo4b6I/edit?tab=t.0
 Prod URL: https://final-capstone-frontend-khaki.vercel.app/index.html#/salary
-
-## Note:
 
 1. I have already deployed front end ( final_capstone_frontend) & backend ( final_capstone_backend & final_capstone_backend_python) to both railway & vercel.
 
