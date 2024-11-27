@@ -4,7 +4,11 @@ Details URL: https://docs.google.com/document/d/1JPRlPxJx3uEbbJ61gBRE2rREEI5pHBw
 
 ## 1.Home (Dashboard)
 
+![Alt text](assets/github_dashboard.png)
+
 ### 1.1 Select Year & Month to interact with the dashboard
+
+![Alt text](assets/github_employees_table_short_details.png)
 
 - Light gray Table (Calculation based in Employees Created/Joined Date) .
   Total Employees, AVG Basic Salary, Total Regular/Probation, Total Male/Female, Yearly Employee Type
@@ -15,7 +19,11 @@ Details URL: https://docs.google.com/document/d/1JPRlPxJx3uEbbJ61gBRE2rREEI5pHBw
 
 ## 2.Employees
 
+![Alt text](assets/github_employees.png)
+
 ### 2.1 Add Employee Form
+
+![Alt text](assets/github_add_employees.png)
 
 - Name: Min-length 5 & Text Only
 - Sex: Male & Female
@@ -33,18 +41,28 @@ Submit to insert New Employee
 
 #### 2.2.1 Update
 
+![Alt text](assets/github_update_employees.png)
+
 When Resign is True then resign date will be shown, Save changes to update to MongoDB
 
 ### 2.2.2 Delete
 
+![Alt text](assets/github_delete_employees.png)
+
 ## 3. Salary
 
+![Alt text](assets/github_salary.png)
+
 ### 3.1 Instruction
+
+![Alt text](assets/github_salary_instruction.png)
 
 There’s instruction in order to input & upload timekeeping file (Excel file XLSX), You may Download Sample File or check sample dataset for inputting timekeeping file https://github.com/RedimRedim/final_capstone_backend_python/tree/main/app/data
 eg input_file8 ( for Aug 2024)
 
 ### 3.2 Input Timekeeping:
+
+![Alt text](assets/github_input_timekeeping.png)
 
 - File Name: input_file8 (for Aug)
 - Select Year: 2024
@@ -56,6 +74,8 @@ Response when success and Download Timekeeping CSV button will be shown. Users c
 Note: You may create timekeeping by yourself for example input_file9 for september as long as follow the instruction and follow the sample file
 
 ### 3.3 Query Monthly Employees Salary:
+
+![Alt text](assets/github_query_monthly_salary.png)
 
 - Select Year & Month => Submit
 - UUID = Auto increment (ID + Integer, ID12 ID13)
