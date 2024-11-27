@@ -1,4 +1,4 @@
 node_modules
 dist
-.env
+#.env because i want let user to able to build docker images, temporarily ignoring this
 .DS_Store

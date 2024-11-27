@@ -1,0 +1,24 @@
+version: "3" #docker version
+
+services:
+  frontend:
+    image: redimredim/frontend_js:1.0 # Use the image from Docker Hub
+    ports:
+      - "8080:8080" #Map port 80 in the container to 8080 on the host
+    depends_on: #mean that the container will be started once two backends is running
+      - backend_js
+      - backend_python
+
+  backend_js:
+    image: redimredim/backend_js:1.0 # Use the image from Docker Hub
+    ports:
+      - "2000:2000"
+    env_file:
+      - .env
+
+  backend_python:
+    image: redimredim/backend_python:1.0 # Use the image from Docker Hub
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
