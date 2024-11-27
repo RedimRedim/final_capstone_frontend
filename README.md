@@ -1,6 +1,7 @@
 # Company ABC - HR Analytics Dashboard
 
-Details URL: https://docs.google.com/document/d/1JPRlPxJx3uEbbJ61gBRE2rREEI5pHBwXUqDEceo4b6I/edit?tab=t.0
+Details Docs URL: https://docs.google.com/document/d/1JPRlPxJx3uEbbJ61gBRE2rREEI5pHBwXUqDEceo4b6I/edit?tab=t.0
+Prod URl: https://final-capstone-frontend-khaki.vercel.app/index.html#/salary
 
 ## 1.Home (Dashboard)
 
@@ -57,7 +58,7 @@ When Resign is True then resign date will be shown, Save changes to update to Mo
 
 ![Alt text](assets/github_salary_instruction.png)
 
-There’s instruction in order to input & upload timekeeping file (Excel file XLSX), You may Download Sample File or check sample dataset for inputting timekeeping file https://github.com/RedimRedim/final_capstone_backend_python/tree/main/app/data
+There’s an instruction in order to input & upload timekeeping file (Excel file XLSX), You may Download Sample File or check sample dataset for inputting timekeeping file https://github.com/RedimRedim/final_capstone_backend_python/tree/main/app/data
 eg input_file8 ( for Aug 2024)
 
 ### 3.2 Input Timekeeping:
@@ -86,7 +87,7 @@ Note: You may create timekeeping by yourself for example input_file9 for septemb
 - Finished Work = employee working Time (timeOut - timeIn) that over 320 minutes / 5:30 hours will be counted as finished work
 - Actual Rest Days = input_file8 sheet RD
 
-Apart of that, we also making sure API to return error if restDays is over than requiredRestDays
+Apart of that, we also making sure API to return error if restDays is greater than requiredRestDays
 
 - Late (Minutes) = if timeIn > workingTime then timeIn - workingTime
 - Absent = if finishedWork is 0 or totalWorkHours <= 320 then count as absent
