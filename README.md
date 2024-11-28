@@ -3,16 +3,17 @@
 ## Note:
 
 Details Docs URL: https://docs.google.com/document/d/1JPRlPxJx3uEbbJ61gBRE2rREEI5pHBwXUqDEceo4b6I/edit?tab=t.0
+<br />
 Prod URL: https://final-capstone-frontend-khaki.vercel.app/index.html#/salary
 
-1. I have already deployed front end ( final_capstone_frontend) & backend ( final_capstone_backend & final_capstone_backend_python) to both railway & vercel.
+I have already deployed front end ( final_capstone_frontend) & backend ( final_capstone_backend & final_capstone_backend_python) to both railway & vercel.
 
 If you have docker installed, you may clone and run docker-compose up by following commands below:
 
 - git clone **https://github.com/RedimRedim/final_capstone_frontend**
 - run **docker-compose up** to run the apps (already included backend images in docker hub)
 
-If you need to run it locally and modify it, you may clone and run it locally:
+If you need to run it locally and modify it without using docker, you may follow the following commands:
 
 - https://github.com/RedimRedim/final_capstone_frontend
 - https://github.com/RedimRedim/final_capstone_backend (Express API)
@@ -100,14 +101,13 @@ Note: You may create timekeeping by yourself for example input_file9 for septemb
 - Basic Salary = Employee first landing job salary ( when create in employee’s form)
 - Daily Salary = Basic Salary / Total Days in a month
 - Finished Work = employee working Time (timeOut - timeIn) that over 320 minutes / 5:30 hours will be counted as finished work
-- Actual Rest Days = input_file8 sheet RD
-
-Apart of that, we also making sure API to return error if restDays is greater than requiredRestDays
+- Actual Rest Days = based in input_file8 sheet RD that client inputted
+  <br>
+  <b>Apart of that, we also making sure API to return error if restDays is greater than requiredRestDays</b>
 
 - Late (Minutes) = if timeIn > workingTime then timeIn - workingTime
 - Absent = if finishedWork is 0 or totalWorkHours <= 320 then count as absent
 - Base Salary = Employee Basic salary when adding new employee form
-- Daily Salary = Basic Salary / Total Day in a month
 - Late Deduction = Daily Salary / 8 hours / 60 minutes \* Total Late in minutes
 - Absent Deduction = Daily Salary \* Absent Days
 - Total Released Salary = Base Salary - Late Deduction - Absent Deduction
