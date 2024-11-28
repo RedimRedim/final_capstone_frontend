@@ -7,6 +7,11 @@ Prod URL: https://final-capstone-frontend-khaki.vercel.app/index.html#/salary
 
 1. I have already deployed front end ( final_capstone_frontend) & backend ( final_capstone_backend & final_capstone_backend_python) to both railway & vercel.
 
+If you have docker installed, you may clone and run docker-compose up by following commands below:
+
+- git clone **https://github.com/RedimRedim/final_capstone_frontend**
+- run **docker-compose up** to run the apps (already included backend images in docker hub)
+
 If you need to run it locally and modify it, you may clone and run it locally:
 
 - https://github.com/RedimRedim/final_capstone_frontend
